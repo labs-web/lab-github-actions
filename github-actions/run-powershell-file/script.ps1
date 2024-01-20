@@ -1,1 +1,1 @@
-Write-Host "Run Powershell file exemple "
+Write-Host "Run Powershell file  "
