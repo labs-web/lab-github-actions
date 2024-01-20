@@ -1,5 +1,6 @@
-name: code-review with script Powershell
-on: push
+name: code-review with Powershell script
+on:
+  pull_request
 jobs:
   code-review:
     name: code-review job
@@ -11,4 +12,4 @@ jobs:
           fetch-depth: 2 # https://stackoverflow.com/questions/65944700/how-to-run-git-diff-in-github-actions
       - name: run script.ps1
         shell: pwsh
-        run: ./github-actions/code-review/script.ps1
+        run: ./code-review.ps1
