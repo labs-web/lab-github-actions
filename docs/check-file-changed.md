@@ -1,0 +1,41 @@
+# check-file-changed
+
+```yml
+name: demo
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  conditional_step:
+    runs-on: 'ubuntu-20.04'
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # Checkout as many commits as needed for the diff
+        fetch-depth: 2
+    - shell: pwsh
+      # Give an id to the step, so we can reference it later
+      id: check_file_changed
+      run: |
+        # Diff HEAD with the previous commit
+        $diff = git diff --name-only HEAD^ HEAD
+
+        # Check if a file under docs/ or with the .md extension has changed (added, modified, deleted)
+        $SourceDiff = $diff | Where-Object { $_ -match '^docs/' -or $_ -match '.md$' }
+        $HasDiff = $SourceDiff.Length -gt 0
+
+        # Set the output named "docs_changed"
+        Write-Host "::set-output name=docs_changed::$HasDiff"
+
+    # Run the step only with "docs_changed" equals "True"
+    - shell: pwsh
+      # steps.<step_id>.outputs.<output name>
+      if: steps.check_file_changed.outputs.docs_changed == 'True'
+      run: echo publish docs
+
+```
+
+## Références 
+- [Executing GitHub Actions jobs or steps only when specific files change](https://www.meziantou.net/executing-github-actions-jobs-or-steps-only-when-specific-files-change.htm)
