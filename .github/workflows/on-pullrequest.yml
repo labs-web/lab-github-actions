@@ -1,9 +1,9 @@
-name: code-review with Powershell script
+name: on Pullrequest demo
 on:
   pull_request
 jobs:
   code-review:
-    name: code-review job
+    name: on Pullrequest job
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -12,4 +12,4 @@ jobs:
           fetch-depth: 2 # inclure l'history de deux commit
       - name: run script.ps1
         shell: pwsh
-        run: ./code-review.ps1 "${{ github.event.pull_request.title }}"
+        run: ./github-actions/on-pullrequest/script.ps1  "${{ github.event.pull_request.title }}"
