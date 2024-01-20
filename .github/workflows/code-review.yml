@@ -7,6 +7,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # https://stackoverflow.com/questions/65944700/how-to-run-git-diff-in-github-actions
       - name: run script.ps1
         shell: pwsh
         run : git diff --name-only HEAD^ HEAD

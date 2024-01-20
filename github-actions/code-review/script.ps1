@@ -3,7 +3,7 @@
 $package_name = "Package1"
 
 # Changed files
-$chanded_files = git diff --name-only HEAD^ -- HEAD
+$chanded_files = git diff --name-only HEAD^1 HEAD
 
 
 # Les dossiers autorisé pour le package $package_name
