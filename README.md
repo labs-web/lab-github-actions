@@ -1,6 +1,5 @@
 # lab-github-actions
 
-
 ## Backlog
 
 - create-demo-app
@@ -8,13 +7,13 @@
 - exécution-command-powsershell
 - exécution-fichier-powershell
 - ci-laravel
+- test-actions
 
-## Travail à faire
+## Livrable 
 
-à teste 
-
-- https://github.com/actions/labeler
-- https://mobilediana.medium.com/adding-labels-automatically-using-github-actions-c0f54f540715
+- docs
+- github_actions
+- README.md
 
 ## Références 
 

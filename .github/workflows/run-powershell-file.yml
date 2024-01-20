@@ -1,0 +1,12 @@
+name: Run powershell-file
+on: push
+jobs:
+  run-powershell-file:
+    name: Exemple d'exécution d'un fichier Powershell
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: run script.ps1
+        shell: pwsh
+        run: ./github-actions/run-powershell-file/script.ps1
