@@ -1,3 +1,7 @@
+---
+layout : default
+order : 1
+---
 # create-demo-app
 
 ## Commandes
