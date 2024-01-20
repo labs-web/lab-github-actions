@@ -1,6 +1,7 @@
 
 # Input
-$package_name = "Package1"
+$param1 = $args[0]
+$package_name = $param1.Split('/')[0]
 
 # Changed files
 $chanded_files = git diff --name-only HEAD^1 HEAD
