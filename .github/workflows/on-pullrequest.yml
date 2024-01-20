@@ -12,4 +12,4 @@ jobs:
           fetch-depth: 2 # inclure l'history de deux commit
       - name: run script.ps1
         shell: pwsh
-        run: echo  ${{ github.event.pull_request.title }}
+        run: ./github-actions/on-pullrequest/script.ps1  ${{ github.event.pull_request.title }}
