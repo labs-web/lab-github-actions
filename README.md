@@ -1,3 +1,8 @@
 # lab-github-actions
 
-## Travail à faire
+## Backlog
+
+- exécution-command-shell
+- exécution-command-powsershell
+- exécution-fichier-powershell
+- ci-laravel
