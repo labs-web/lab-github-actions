@@ -1,4 +1,4 @@
-name: code-review with Powershell script
+name: code-review
 on:
   pull_request
 jobs:
@@ -10,6 +10,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2 # inclure l'history de deux commit
-      - name: run script.ps1
+      - name: run code-review.ps1
         shell: pwsh
         run: ./code-review.ps1 "${{ github.event.pull_request.title }}"
