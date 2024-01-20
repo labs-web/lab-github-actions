@@ -11,5 +11,4 @@ jobs:
           fetch-depth: 2 # https://stackoverflow.com/questions/65944700/how-to-run-git-diff-in-github-actions
       - name: run script.ps1
         shell: pwsh
-        run : git diff --name-only HEAD^ HEAD
-        # run: ./github-actions/code-review/script.ps1
+        run: ./github-actions/code-review/script.ps1
