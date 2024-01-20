@@ -7,8 +7,8 @@ $chanded_files = git diff --name-only HEAD^ HEAD
 
 
 # Les dossiers autorisé pour le package $package_name
-$autorized_directories = "app\Http\Controllers\$package_name",
-                 "app\Models\$package_name"
+$autorized_directories = "app/Http/Controllers/$package_name",
+                 "app/Models/$package_name"
 
 # Message d'erreur
 $message_erreur = ""
@@ -21,11 +21,15 @@ foreach($file in $chanded_files){
         }
     }
     if(-not($autorised_change)) {
-        $message_erreur =  $message_erreur + "Vous n'avez pas le droit de modifier le fichier : $file \n"
+        $message_erreur =  $message_erreur + "Vous n'avez pas le droit de modifier le fichier : $file `n"
     } 
 }
 
-Write-Host $message_erreur
+if(-not($message_erreur -eq "")){
+    Write-Host $message_erreur
+    exit 1
+}
+
 
 
 # Filtrer les fichiers selon une expression regulière

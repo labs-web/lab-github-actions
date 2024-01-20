@@ -1,0 +1,12 @@
+name: code-review with script Powershell
+on: push
+jobs:
+  code-review:
+    name: code-review job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: run script.ps1
+        shell: pwsh
+        run: ./github-actions/code-review/script.ps1
