@@ -1,13 +1,6 @@
 # lab-github-actions
 
-- [lab-github-actions](#lab-github-actions)
-  - [](#)
-  - [Backlog](#backlog)
-  - [Travail à faire](#travail-à-faire)
-  - [Références](#références)
 
-
-## 
 ## Backlog
 
 - create-demo-app
@@ -22,8 +15,6 @@
 
 - https://github.com/actions/labeler
 - https://mobilediana.medium.com/adding-labels-automatically-using-github-actions-c0f54f540715
-
-
 
 ## Références 
 
