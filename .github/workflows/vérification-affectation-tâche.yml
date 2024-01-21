@@ -1,0 +1,15 @@
+name: Vérification d'affectation de la tâche au membre envoyeur
+on:
+  pull_request
+jobs:
+  code-review:
+    name: Vérification d'affectation de la tâche
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # inclure l'history de deux commit
+      - name: run script.ps1
+        shell: pwsh
+        run: echo "vérification de l'affectation de la tâche"
