@@ -25,7 +25,7 @@ function confirm_to_continue($message) {
   $question = "Are you sure you want to proceed?"
   $choices  = '&Yes', '&No'
 
-  # Write-Host $message 
+  Write-Host $message 
   
   # $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
   # if ($decision -eq 1) {
@@ -193,13 +193,15 @@ Foreach-Object {
     if($Issue_obj.number -eq 0){
             confirm_to_continue("Création de l'issue : $Issue_obj ")
             if($Issue_obj.member -eq $null){
-                gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
+              confirm_to_continue("gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $file_fullname")
+              gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
             }else{
-                gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $file_fullname 
+              confirm_to_continue("gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $file_fullname ")
+              gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $file_fullname 
             }
     }else{
         # Edit existant issue
-        confirm_to_continue("Update de l'issue $($Issue_obj) ")
+        confirm_to_continue("gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $file_fullname")
         gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
     }
 
@@ -208,6 +210,8 @@ Foreach-Object {
     if(-not($Issue_obj_file_name -eq $file_name )){
         # Update file name
         Write-Host "Rename $file_name to $Issue_obj_file_name "
+        Write-Host "$file_fullname"
+        Write-Host "$item_full_path\$Issue_obj_file_name"
         Rename-Item -Path $file_fullname -NewName "$item_full_path\$Issue_obj_file_name"
     }
 
