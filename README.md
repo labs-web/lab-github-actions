@@ -1,4 +1,4 @@
-﻿# Lab Github Actions 
+# Lab Github Actions 
 
 - Référence :  lab-github-actions 
 
@@ -20,6 +20,8 @@ Introduction au backlog
 - [6.run-powershell-file.md](./Backlog/6.run-powershell-file.md) 
 - [7.test-actions.md](./Backlog/7.test-actions.md) 
 - [on-pullrequest.md](./Backlog/on-pullrequest.md) 
+- [update-readme-file-1.md](./Backlog/update-readme-file-1.md) 
+- [using-gh-cli.md](./Backlog/using-gh-cli.md) 
 ## Livrables 
 
 Introduction au Livrables 
@@ -34,6 +36,5 @@ Introduction au Livrables
 
 Introduction au Références 
 
-- [Ref1](https://github.com/marketplace?category=project-management&query=label&type=actions) 
-- [working-label](https://github.com/marketplace/actions/working-label) 
+- [Marketplace : Actions](https://github.com/marketplace?category=project-management&query=label&type=actions) 
 
