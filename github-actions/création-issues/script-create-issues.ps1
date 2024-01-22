@@ -70,7 +70,7 @@ git commit -m "change backlog files"
 git push
 
 # Create pull request if not yet exist
-$pull_request_exist = (gh pr list --json title | ConvertFrom-Json).title -contains "update readme file"
+$pull_request_exist = (gh pr list --json title | ConvertFrom-Json).title -contains "change backlog files"
 if(-not($pull_request_exist)){
     gh pr create --base develop --title "change backlog files" --body "change backlog files"
 }
