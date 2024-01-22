@@ -16,3 +16,11 @@ jobs:
       - name: run update-readme-file.ps1
         shell: pwsh
         run: ./github-actions/update-readme-file/update-readme-file.ps1
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "ESSARRAJ"
+          git config --global user.email "essarraj.fouad@gmail.com"
+    
+          git add .
+          git commit -m "change README.md file to be updated with lab-web.json"
+          git push
