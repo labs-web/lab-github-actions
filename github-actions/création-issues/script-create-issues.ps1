@@ -198,8 +198,8 @@ Foreach-Object {
             }
     }else{
         # Edit existant issue
-        $Issue_obj.title += "test"
-        confirm_to_continue("gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $file_fullname")
+        # $Issue_obj.title += "test"
+        confirm_to_continue("gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --body-file $file_fullname")
         # gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
         gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --body-file $file_fullname
     }
