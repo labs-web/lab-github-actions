@@ -85,8 +85,6 @@ confirm_to_continue("Create pullrequest $readme_path ")
 # Send PullRequest to develop
 git config --global user.name "ESSARRAJ"
 git config --global user.email "essarraj.fouad@gmail.com"
-git add .
-git commit -m "change README.md file to be updated with lab-web.json"
 if($branch_update_readme_file_exist){
     git checkout "update-readme-file"
 }else{
@@ -94,4 +92,8 @@ if($branch_update_readme_file_exist){
     git push --set-upstream origin update-readme-file
 }
 
-gh pr create --title "update readme file" --body "change README.md file to be updated with lab-web.json"
+git add .
+git commit -m "change README.md file to be updated with lab-web.json"
+
+
+gh pr create --base develop --title "update readme file" --body "change README.md to lab-web.json"
