@@ -6,7 +6,7 @@ Une autoformation pratique sur la réalisation des github actions
 
 ## Backlog 
 
-Introduction au backlog 
+Le backlog est une liste ordonées des tâches 
 
 - [1.create-demo-app.md](./Backlog/1.create-demo-app.md) 
 - [11.check-file-changed.md](./Backlog/11.check-file-changed.md) 
