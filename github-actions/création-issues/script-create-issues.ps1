@@ -44,8 +44,7 @@ function create_branch_to_do_pull_request {
   git config --global user.name "ESSARRAJ"
   git config --global user.email "essarraj.fouad@gmail.com"
   git checkout -b $branche_name 
-  git push --set-upstream origin $branche_name
-  git pull
+
 
   # Préparation de git for pullrequest
   # git config --global user.name "ESSARRAJ"
@@ -73,15 +72,19 @@ function create_branch_to_do_pull_request {
 }
   
 function save_and_send_pullrequest(){
+
+git push --set-upstream origin $branche_name
+git pull
+
   # push to  update_backlog_files branch
 git add .
 git commit -m "change backlog files"
 git push
 
 # Create pull request if not yet exist
-$pull_request_exist = (gh pr list --json title | ConvertFrom-Json).title -contains "change backlog files"
+$pull_request_exist = (gh pr list --json title | ConvertFrom-Json).title -contains "$branche_name"
 if(-not($pull_request_exist)){
-    gh pr create --base develop --title "$branche_name" --body "change backlog files"
+    gh pr create --base develop --title $branche_name --body "change backlog files"
 }
 
 }
@@ -178,6 +181,7 @@ confirm_to_continue("Update or Create issues for repository : $depot_path ")
 create_branch_to_do_pull_request
 
 # Traitement pour chaque fichier(item) dans /backlog
+$chaned_files = $false
 Get-ChildItem "$depot_path/backlog" -Filter *.md | 
 Foreach-Object {
 
@@ -215,11 +219,14 @@ Foreach-Object {
         Write-Host "$file_fullname"
         Write-Host "$item_full_path\$Issue_obj_file_name"
         Rename-Item -Path $file_fullname -NewName "$item_full_path/$Issue_obj_file_name"
+        $chaned_files = $true
     }
 
 }
+if($chaned_files){
+  save_and_send_pullrequest
+}
 
-save_and_send_pullrequest
 
 # send pull request 
 
