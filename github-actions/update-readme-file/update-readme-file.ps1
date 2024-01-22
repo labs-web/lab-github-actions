@@ -64,10 +64,6 @@ $json_data.References.References |  ForEach-Object {
     $readme_string += "- [$($_.Titre)]($($_.Lien)) `n"
 } 
 
-# Enregistrement de fichier README
-Set-Content $readme_path $readme_string
-
-
 
 # Check if branch update_readme_file exist
 $branch_update_readme_file_exist = $false
@@ -93,6 +89,11 @@ if($branch_update_readme_file_exist){
 }
 
 git pull
+
+# Enregistrement de fichier README
+Set-Content $readme_path $readme_string
+
+
 git add .
 git commit -m "change README.md file to be updated with lab-web.json"
 git push
