@@ -40,7 +40,7 @@ function confirm_to_continue($message) {
 $branche_name = ""
 function create_branch_to_do_pull_request {
 
-  $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss tt')
+  $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
   git config --global user.name "ESSARRAJ"
   git config --global user.email "essarraj.fouad@gmail.com"
   git checkout -b $branche_name 
