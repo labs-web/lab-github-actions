@@ -12,4 +12,4 @@ jobs:
           fetch-depth: 2 # inclure l'history de deux commit
       - name: run script.ps1
         shell: pwsh
-        run: echo "vérification de l'affectation de la tâche"
+        run: echo "${{ github.event }}"
