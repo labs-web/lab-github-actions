@@ -1,5 +1,9 @@
 ﻿# Create or updat backlog to issues
 
+# Configutation de script
+$project_name = "labs-web"
+
+
 # Le sctipy doit être exécuter dans la racine de dépôt
 
 # 
@@ -59,8 +63,6 @@ function create_branch_to_do_pull_request {
   
   }
   
-
-
 function save_and_send_pullrequest(){
   # push to  update_backlog_files branch
 git add .
@@ -76,12 +78,6 @@ if(-not($pull_request_exist)){
 }
 
 # get organisation name
-function get_org_name {
-  $current_script_path = $PSScriptRoot.Split('\')
-  return $current_script_path[1] 
-}
-
-
 
 function find_issue_by_title($title){
   
@@ -169,7 +165,7 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
 
 # Input
 $depot_path = Get-Location
-$project_name = get_org_name
+
 
 # Message de confirmation
 confirm_to_continue("Update or Create issues for repository : $depot_path ")
