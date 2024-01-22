@@ -8,10 +8,12 @@ on:
     #   branches: [ "develop" ]
     #   paths:
     #     - backlog/**
+permissions: read-all
 jobs:
   create-or-update-issues-job:
     name: Création ou mettre à jour les issues
     runs-on: ubuntu-latest
+   
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
