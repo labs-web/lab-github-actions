@@ -1,8 +1,6 @@
 # Lab Github Actions 
 
-change readme file localy
-
-- R√©f√©rence :  lab-github-actions 
+- RÈfÈrence :  lab-github-actions 
 
 Une autoformation pratique sur la r√©alisation des github actions  
 
@@ -10,15 +8,15 @@ Une autoformation pratique sur la r√©alisation des github actions
 
 Le backlog est une liste ordon√©es des t√¢ches 
 
-- [1.create-demo-app-test.md](./Backlog/1.create-demo-app-test.md) 
-- [11.check-file-changed.md](./Backlog/11.check-file-changed.md) 
-- [12.code-review-pull-request.md](./Backlog/12.code-review-pull-request.md) 
-- [13.v√©rification-affectation-t√¢che.md](./Backlog/13.v√©rification-affectation-t√¢che.md) 
-- [14.yml.md](./Backlog/14.yml.md) 
-- [2.backlog.md](./Backlog/2.backlog.md) 
-- [3.ci-laravel.md](./Backlog/3.ci-laravel.md) 
-- [4.ex√©cution-command-powsershell.md](./Backlog/4.ex√©cution-command-powsershell.md) 
-- [5.ex√©cution-command-shell.md](./Backlog/5.ex√©cution-command-shell.md) 
+- [1.create-demo-app-test.29.md](./Backlog/1.create-demo-app-test.29.md) 
+- [11.check-file-changed.25.md](./Backlog/11.check-file-changed.25.md) 
+- [12.code-review-pull-request.26.md](./Backlog/12.code-review-pull-request.26.md) 
+- [13.vÈrification-affectation-t‚che.0.md](./Backlog/13.vÈrification-affectation-t‚che.0.md) 
+- [14.yml.14.md](./Backlog/14.yml.14.md) 
+- [2.backlog.2.md](./Backlog/2.backlog.2.md) 
+- [3.ci-laravel.3.md](./Backlog/3.ci-laravel.3.md) 
+- [4.exÈcution-command-powsershell.0.md](./Backlog/4.exÈcution-command-powsershell.0.md) 
+- [5.exÈcution-command-shell.md](./Backlog/5.exÈcution-command-shell.md) 
 - [6.run-powershell-file.md](./Backlog/6.run-powershell-file.md) 
 - [7.test-actions.md](./Backlog/7.test-actions.md) 
 - [on-pullrequest.md](./Backlog/on-pullrequest.md) 
