@@ -92,6 +92,7 @@ if($branch_update_readme_file_exist){
     git push --set-upstream origin update-readme-file
 }
 
+git pull
 git add .
 git commit -m "change README.md file to be updated with lab-web.json"
 git push
