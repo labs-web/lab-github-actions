@@ -8,9 +8,9 @@ Une autoformation pratique sur la réalisation des github actions
 
 Introduction au backlog 
 
-- [1.create-demo-app-test2.md](./Backlog/1.create-demo-app-test2.md) 
+- [1.create-demo-app-test.md](./Backlog/1.create-demo-app-test.md) 
 - [11.check-file-changed.md](./Backlog/11.check-file-changed.md) 
-- [12.code-review-pull-request-1.md](./Backlog/12.code-review-pull-request-1.md) 
+- [12.code-review-pull-request.md](./Backlog/12.code-review-pull-request.md) 
 - [13.vérification-affectation-tâche.md](./Backlog/13.vérification-affectation-tâche.md) 
 - [14.yml.md](./Backlog/14.yml.md) 
 - [2.backlog.md](./Backlog/2.backlog.md) 
@@ -19,8 +19,8 @@ Introduction au backlog
 - [5.exécution-command-shell.md](./Backlog/5.exécution-command-shell.md) 
 - [6.run-powershell-file.md](./Backlog/6.run-powershell-file.md) 
 - [7.test-actions.md](./Backlog/7.test-actions.md) 
-- [on-pullrequest-1.md](./Backlog/on-pullrequest-1.md) 
-- [update-readme-file-2.md](./Backlog/update-readme-file-2.md) 
+- [on-pullrequest.md](./Backlog/on-pullrequest.md) 
+- [update-readme-file.md](./Backlog/update-readme-file.md) 
 - [using-gh-cli.md](./Backlog/using-gh-cli.md) 
 ## Livrables 
 
