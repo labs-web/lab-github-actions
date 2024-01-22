@@ -54,6 +54,7 @@ function create_branch_to_do_pull_request {
   if($branch_update_backlog_files_exist){
       Write-Host "git checkout update_backlog_files"
       git checkout "update_backlog_files"
+      git merge develop
   }else{
       Write-Host "git checkout -b update_backlog_files"
       git checkout -b "update_backlog_files" 
