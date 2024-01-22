@@ -19,7 +19,7 @@ function confirm_to_continue($message) {
 $depot_path = $(Get-Location).Path
 $readme_path= "$depot_path\README.md"
 $lab_web_data = "$depot_path/lab-web.json"
-$backlog_files_path = "$depot_path\Backlog"
+$backlog_files_path = "$depot_path\backlog"
 # Confirmation
 # confirm_to_continue("Update de fichier $readme_path ")
 
