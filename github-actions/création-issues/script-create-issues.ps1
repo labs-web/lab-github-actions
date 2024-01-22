@@ -190,7 +190,8 @@ Foreach-Object {
             confirm_to_continue("Création de l'issue : $Issue_obj ")
             if($Issue_obj.member -eq $null){
               confirm_to_continue("gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $file_fullname")
-              gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
+              # gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
+              gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $file_fullname
             }else{
               confirm_to_continue("gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $file_fullname ")
               gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $file_fullname 
@@ -198,7 +199,8 @@ Foreach-Object {
     }else{
         # Edit existant issue
         confirm_to_continue("gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $file_fullname")
-        gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
+        # gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
+        gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --body-file $file_fullname
     }
 
     # Change file name if is incorrect
