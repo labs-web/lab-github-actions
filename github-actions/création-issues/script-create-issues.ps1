@@ -134,12 +134,6 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
     if(-not($issue -eq $null)){
       $Issue_obj.number = $issue.number
     }
-  }else{
-    if($issue -eq $null){
-      $Issue_obj.number = "0"
-      Write-Host("Issue avec le nombre $($Issue_obj.number) doit être existe sur github")
-      exit 1
-    }
   }
     
   # Dection de membre 
