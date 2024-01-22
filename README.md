@@ -1,30 +1,39 @@
-# lab-github-actions
+﻿# Lab Github Actions 
 
-## Backlog
+- Référence :  lab-github-actions 
 
-- create-demo-app
-- exécution-command-shell
-- exécution-command-powsershell
-- exécution-fichier-powershell
-- ci-laravel
-- test-actions
+Une autoformation pratique sur la réalisation des github actions  
 
-## Livrable 
-  
-- docs
-- github_actions
-- README.md
+## Backlog 
 
+Introduction au backlog 
 
+- [1.create-demo-app.md](./Backlog/1.create-demo-app.md) 
+- [11.check-file-changed.md](./Backlog/11.check-file-changed.md) 
+- [12.code-review-pull-request.md](./Backlog/12.code-review-pull-request.md) 
+- [13.vérification-affectation-tâche.md](./Backlog/13.vérification-affectation-tâche.md) 
+- [14.yml.md](./Backlog/14.yml.md) 
+- [2.backlog.md](./Backlog/2.backlog.md) 
+- [3.ci-laravel.md](./Backlog/3.ci-laravel.md) 
+- [4.exécution-command-powsershell.md](./Backlog/4.exécution-command-powsershell.md) 
+- [5.exécution-command-shell.md](./Backlog/5.exécution-command-shell.md) 
+- [6.run-powershell-file.md](./Backlog/6.run-powershell-file.md) 
+- [7.test-actions.md](./Backlog/7.test-actions.md) 
+- [on-pullrequest.md](./Backlog/on-pullrequest.md) 
+## Livrables 
 
-## Présentation
+Introduction au Livrables 
 
-- []()
-
-## Rapport 
-
-
+- /Backlog 
+  - Le backlog du lab 
+- /docs 
+  - Documentation 
+- /github_actions 
+- /.github/workflows 
 ## Références 
 
-- https://github.com/marketplace?category=project-management&query=label&type=actions
-- [working-label](https://github.com/marketplace/actions/working-label)
+Introduction au Références 
+
+- [Ref1](https://github.com/marketplace?category=project-management&query=label&type=actions) 
+- [working-label](https://github.com/marketplace/actions/working-label) 
+
