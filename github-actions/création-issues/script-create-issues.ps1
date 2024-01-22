@@ -210,7 +210,7 @@ Foreach-Object {
         Write-Host "Rename $file_name to $Issue_obj_file_name "
         Write-Host "$file_fullname"
         Write-Host "$item_full_path\$Issue_obj_file_name"
-        Rename-Item -Path $file_fullname -NewName "$item_full_path\$Issue_obj_file_name"
+        Rename-Item -Path $file_fullname -NewName "$item_full_path/$Issue_obj_file_name"
     }
 
 }
