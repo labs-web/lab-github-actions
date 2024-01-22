@@ -94,6 +94,6 @@ if($branch_update_readme_file_exist){
 
 git add .
 git commit -m "change README.md file to be updated with lab-web.json"
-
+git push
 
 gh pr create --base develop --title "update readme file" --body "change README.md to lab-web.json"
