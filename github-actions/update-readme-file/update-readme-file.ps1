@@ -79,6 +79,9 @@ foreach($branch_name in $branch_list ){
     }
 }
 
+confirm_to_continue("Create pullrequest $readme_path ")
+
+
 # Send PullRequest to develop
 git config --global user.name "ESSARRAJ"
 git config --global user.email "essarraj.fouad@gmail.com"
