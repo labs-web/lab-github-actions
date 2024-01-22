@@ -16,3 +16,5 @@ jobs:
       - name: run update-readme-file.ps1
         shell: pwsh
         run: ./github-actions/update-readme-file/update-readme-file.ps1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
