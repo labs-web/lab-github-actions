@@ -1,0 +1,24 @@
+name: create-or-update-issues
+on:
+    push:
+      branches: [ "develop" ]
+      paths:
+        - backlog/**
+    # pull_request:
+    #   branches: [ "develop" ]
+    #   paths:
+    #     - backlog/**
+jobs:
+  create-or-update-issues-job:
+    name: Création ou mettre à jour les issues
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # inclure l'history de deux commit
+      - name: run script.ps1
+        shell: pwsh
+        run: ./github-actions/création-issues/script-create-issues.ps1
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
