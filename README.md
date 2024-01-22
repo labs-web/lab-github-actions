@@ -1,5 +1,7 @@
 # Lab Github Actions 
 
+change readme file localy
+
 - Référence :  lab-github-actions 
 
 Une autoformation pratique sur la réalisation des github actions  
