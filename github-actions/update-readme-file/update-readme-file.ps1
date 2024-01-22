@@ -79,7 +79,7 @@ foreach($branch_name in $branch_list ){
     }
 }
 
-confirm_to_continue("Create pullrequest $readme_path ")
+# confirm_to_continue("Create pullrequest $readme_path ")
 
 
 # Send PullRequest to develop

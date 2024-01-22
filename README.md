@@ -20,7 +20,7 @@ Introduction au backlog
 - [6.run-powershell-file.md](./Backlog/6.run-powershell-file.md) 
 - [7.test-actions.md](./Backlog/7.test-actions.md) 
 - [on-pullrequest.md](./Backlog/on-pullrequest.md) 
-- [update-readme-file-1.md](./Backlog/update-readme-file-1.md) 
+- [update-readme-file-2.md](./Backlog/update-readme-file-2.md) 
 - [using-gh-cli.md](./Backlog/using-gh-cli.md) 
 ## Livrables 
 
