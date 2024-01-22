@@ -66,6 +66,9 @@ $json_data.References.References |  ForEach-Object {
 
 
 # Check if branch update_readme_file exist
+git config --global user.name "ESSARRAJ"
+git config --global user.email "essarraj.fouad@gmail.com"
+git fetch
 $branch_update_readme_file_exist = $false
 $branch_list = git branch -r
 foreach($branch_name in $branch_list ){
@@ -79,9 +82,6 @@ foreach($branch_name in $branch_list ){
 
 
 # Send PullRequest to develop
-git config --global user.name "ESSARRAJ"
-git config --global user.email "essarraj.fouad@gmail.com"
-git fetch
 if($branch_update_readme_file_exist){
     Write-Host "git checkout update-readme-file"
     git checkout "update-readme-file"
