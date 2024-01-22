@@ -66,3 +66,34 @@ $json_data.References.References |  ForEach-Object {
 
 # Enregistrement de fichier README
 Set-Content $readme_path $readme_string
+
+
+
+# Check if branch update_readme_file exist
+$branch_update_readme_file_exist = $false
+$branch_list = git branch -r
+foreach($branch_name in $branch_list ){
+    $branch_name = $branch_name.Trim()
+    if($branch_name  -eq "origin/update-readme-file"){
+        $branch_update_readme_file_exist = $true
+    }
+}
+
+confirm_to_continue("Create pullrequest $readme_path ")
+
+
+# Send PullRequest to develop
+git config --global user.name "ESSARRAJ"
+git config --global user.email "essarraj.fouad@gmail.com"
+if($branch_update_readme_file_exist){
+    git checkout "update-readme-file"
+}else{
+    git checkout -b "update-readme-file" 
+    git push --set-upstream origin update-readme-file
+}
+
+git add .
+git commit -m "change README.md file to be updated with lab-web.json"
+
+
+gh pr create --base develop --title "update readme file" --body "change README.md to lab-web.json"
