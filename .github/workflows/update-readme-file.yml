@@ -23,4 +23,4 @@ jobs:
     
           git add .
           git commit -m "change README.md file to be updated with lab-web.json"
-          git push
+          gh pr create --title "update readme file"
