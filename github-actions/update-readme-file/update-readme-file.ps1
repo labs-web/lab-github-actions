@@ -81,6 +81,7 @@ foreach($branch_name in $branch_list ){
 # Send PullRequest to develop
 git config --global user.name "ESSARRAJ"
 git config --global user.email "essarraj.fouad@gmail.com"
+git fetch
 if($branch_update_readme_file_exist){
     git checkout "update-readme-file"
 }else{
@@ -88,7 +89,6 @@ if($branch_update_readme_file_exist){
     git push --set-upstream origin update-readme-file
 }
 
-git fetch
 git pull
 
 # Enregistrement de fichier README
