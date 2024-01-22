@@ -88,6 +88,7 @@ if($branch_update_readme_file_exist){
     git push --set-upstream origin update-readme-file
 }
 
+git fetch
 git pull
 
 # Enregistrement de fichier README
