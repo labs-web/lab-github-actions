@@ -37,32 +37,40 @@ function confirm_to_continue($message) {
   # } 
 }
 
+$branche_name = ""
 function create_branch_to_do_pull_request {
 
-  # Préparation de git for pullrequest
+  $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss tt')
   git config --global user.name "ESSARRAJ"
   git config --global user.email "essarraj.fouad@gmail.com"
-  git fetch
-  $branch_update_backlog_files_exist = $false
-  $branch_list = git branch -r
-  foreach($branch_name in $branch_list ){
-      $branch_name = $branch_name.Trim()
-      if($branch_name  -eq "origin/update_backlog_files"){
-          $branch_update_backlog_files_exist = $true
-      }
-  }
-  if($branch_update_backlog_files_exist){
-      Write-Host "git checkout update_backlog_files"
-      git checkout "update_backlog_files"
-      git merge develop
-  }else{
-      Write-Host "git checkout -b update_backlog_files"
-      git checkout -b "update_backlog_files" 
-      git push --set-upstream origin update_backlog_files
-  }
+  git checkout -b $branche_name 
+  git push --set-upstream origin update_backlog_files
   git pull
+
+  # Préparation de git for pullrequest
+  # git config --global user.name "ESSARRAJ"
+  # git config --global user.email "essarraj.fouad@gmail.com"
+  # git fetch
+  # $branch_update_backlog_files_exist = $false
+  # $branch_list = git branch -r
+  # foreach($branch_name in $branch_list ){
+  #     $branch_name = $branch_name.Trim()
+  #     if($branch_name  -eq "origin/update_backlog_files"){
+  #         $branch_update_backlog_files_exist = $true
+  #     }
+  # }
+  # if($branch_update_backlog_files_exist){
+  #     Write-Host "git checkout update_backlog_files"
+  #     git checkout "update_backlog_files"
+  #     git merge develop
+  # }else{
+  #     Write-Host "git checkout -b update_backlog_files"
+  #     git checkout -b "update_backlog_files" 
+  #     git push --set-upstream origin update_backlog_files
+  # }
+  # git pull
   
-  }
+}
   
 function save_and_send_pullrequest(){
   # push to  update_backlog_files branch
@@ -73,7 +81,7 @@ git push
 # Create pull request if not yet exist
 $pull_request_exist = (gh pr list --json title | ConvertFrom-Json).title -contains "change backlog files"
 if(-not($pull_request_exist)){
-    gh pr create --base develop --title "change backlog files" --body "change backlog files"
+    gh pr create --base develop --title "$branche_name" --body "change backlog files"
 }
 
 }
