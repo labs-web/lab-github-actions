@@ -83,8 +83,10 @@ git config --global user.name "ESSARRAJ"
 git config --global user.email "essarraj.fouad@gmail.com"
 git fetch
 if($branch_update_readme_file_exist){
+    Write-Host "git checkout update-readme-file"
     git checkout "update-readme-file"
 }else{
+    Write-Host "git checkout -b update-readme-file"
     git checkout -b "update-readme-file" 
     git push --set-upstream origin update-readme-file
 }
