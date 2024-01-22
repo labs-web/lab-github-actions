@@ -6,7 +6,7 @@ on:
       branches: [ "develop" ]
 jobs:
   update-readme-file-job:
-    name: update readme file job
+    name: Mise à jour de fichier README.md depuis lab-web.json
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -15,4 +15,4 @@ jobs:
           fetch-depth: 2 # inclure l'history de deux commit
       - name: run update-readme-file.ps1
         shell: pwsh
-        run: ./github-actions/update-readme-file/update-readme-file.ps1"
+        run: ./github-actions/update-readme-file/update-readme-file.ps1
