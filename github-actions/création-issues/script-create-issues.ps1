@@ -44,7 +44,7 @@ function create_branch_to_do_pull_request {
   git config --global user.name "ESSARRAJ"
   git config --global user.email "essarraj.fouad@gmail.com"
   git checkout -b $branche_name 
-  git push --set-upstream origin update_backlog_files
+  git push --set-upstream origin $branche_name
   git pull
 
   # Préparation de git for pullrequest
