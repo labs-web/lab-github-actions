@@ -1,6 +1,6 @@
 {
 "folders": [
-    {"path": "./backlog"}
+    {"path": "./backlog"},
     {"path": "./docs"},
     {"path": "./github-actions"},
     {
@@ -8,5 +8,7 @@
     },
     {"path": "."}
 ],
-"settings": {}
+"settings": {
+    "git.autofetch": true
+}
 }
