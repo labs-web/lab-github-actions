@@ -8,6 +8,7 @@ Une autoformation pratique sur la réalisation des github actions
 
 Le backlog est une liste ordonées des tâches 
 
+- [0.gh-thoken.46.md](./Backlog/0.gh-thoken.46.md) 
 - [1.backlog.2.md](./Backlog/1.backlog.2.md) 
 - [11.check-file-changed.25.md](./Backlog/11.check-file-changed.25.md) 
 - [12.code-review-pull-request.26.md](./Backlog/12.code-review-pull-request.26.md) 
@@ -22,7 +23,6 @@ Le backlog est une liste ordonées des tâches
 - [4.exécution-command-powsershell.33.md](./Backlog/4.exécution-command-powsershell.33.md) 
 - [5.run-powershell-file.6.md](./Backlog/5.run-powershell-file.6.md) 
 - [6.using-gh-cli.37.md](./Backlog/6.using-gh-cli.37.md) 
-- [gh_thoken.md](./Backlog/gh_thoken.md) 
 ## Livrables 
 
 Introduction au Livrables 
