@@ -73,6 +73,7 @@ function create_branch_to_do_pull_request {
   
 function save_and_send_pullrequest(){
 
+confirm_to_continue("git push --set-upstream origin $branche_name")
 git push --set-upstream origin $branche_name
 git pull
 
