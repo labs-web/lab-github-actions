@@ -24,4 +24,6 @@ jobs:
         shell: pwsh
         run: ./github-actions/création-issues/script-create-issues.ps1
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.UPDATE_PROJECT_TOKEN }}
+          # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
