@@ -9,12 +9,12 @@ Une autoformation pratique sur la réalisation des github actions
 Le backlog est une liste ordonées des tâches 
 
 - [1.backlog.2.md](./Backlog/1.backlog.2.md) 
+- [1.exposé-yml.14.md](./Backlog/1.exposé-yml.14.md) 
 - [10.check-file-changed.25.md](./Backlog/10.check-file-changed.25.md) 
 - [10.exécution-command-powsershell.33.md](./Backlog/10.exécution-command-powsershell.33.md) 
 - [10.on-pullrequest.35.md](./Backlog/10.on-pullrequest.35.md) 
 - [10.run-powershell-file.6.md](./Backlog/10.run-powershell-file.6.md) 
 - [10.using-gh-cli.37.md](./Backlog/10.using-gh-cli.37.md) 
-- [10.yml.14.md](./Backlog/10.yml.14.md) 
 - [2.comprendre-github-actions.md](./Backlog/2.comprendre-github-actions.md) 
 - [20.code-review-pull-request.26.md](./Backlog/20.code-review-pull-request.26.md) 
 - [20.création-issues.40.md](./Backlog/20.création-issues.40.md) 
