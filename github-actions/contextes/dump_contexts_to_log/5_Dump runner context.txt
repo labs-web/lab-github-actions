@@ -1,0 +1,23 @@
+2024-01-23T17:30:18.3341362Z ##[group]Run echo "$RUNNER_CONTEXT"
+2024-01-23T17:30:18.3341943Z [36;1mecho "$RUNNER_CONTEXT"[0m
+2024-01-23T17:30:18.3386736Z shell: /usr/bin/bash -e {0}
+2024-01-23T17:30:18.3387225Z env:
+2024-01-23T17:30:18.3388667Z   RUNNER_CONTEXT: {
+  "os": "Linux",
+  "arch": "X64",
+  "name": "GitHub Actions 1",
+  "environment": "github-hosted",
+  "tool_cache": "/opt/hostedtoolcache",
+  "temp": "/home/runner/work/_temp",
+  "workspace": "/home/runner/work/lab-github-actions"
+}
+2024-01-23T17:30:18.3390368Z ##[endgroup]
+2024-01-23T17:30:18.3457761Z {
+2024-01-23T17:30:18.3458448Z   "os": "Linux",
+2024-01-23T17:30:18.3458878Z   "arch": "X64",
+2024-01-23T17:30:18.3459802Z   "name": "GitHub Actions 1",
+2024-01-23T17:30:18.3460897Z   "environment": "github-hosted",
+2024-01-23T17:30:18.3461555Z   "tool_cache": "/opt/hostedtoolcache",
+2024-01-23T17:30:18.3462395Z   "temp": "/home/runner/work/_temp",
+2024-01-23T17:30:18.3463167Z   "workspace": "/home/runner/work/lab-github-actions"
+2024-01-23T17:30:18.3463726Z }

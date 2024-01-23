@@ -1,0 +1,17 @@
+2024-01-23T17:30:18.3496798Z ##[group]Run echo "$STRATEGY_CONTEXT"
+2024-01-23T17:30:18.3497436Z [36;1mecho "$STRATEGY_CONTEXT"[0m
+2024-01-23T17:30:18.3542302Z shell: /usr/bin/bash -e {0}
+2024-01-23T17:30:18.3542908Z env:
+2024-01-23T17:30:18.3543628Z   STRATEGY_CONTEXT: {
+  "fail-fast": true,
+  "job-index": 0,
+  "job-total": 1,
+  "max-parallel": 1
+}
+2024-01-23T17:30:18.3544484Z ##[endgroup]
+2024-01-23T17:30:18.3612500Z {
+2024-01-23T17:30:18.3613223Z   "fail-fast": true,
+2024-01-23T17:30:18.3613769Z   "job-index": 0,
+2024-01-23T17:30:18.3614578Z   "job-total": 1,
+2024-01-23T17:30:18.3615367Z   "max-parallel": 1
+2024-01-23T17:30:18.3616102Z }
