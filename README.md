@@ -22,6 +22,7 @@ Le backlog est une liste ordonées des tâches
 - [4.exécution-command-powsershell.33.md](./Backlog/4.exécution-command-powsershell.33.md) 
 - [5.run-powershell-file.6.md](./Backlog/5.run-powershell-file.6.md) 
 - [6.using-gh-cli.37.md](./Backlog/6.using-gh-cli.37.md) 
+- [gh_thoken.md](./Backlog/gh_thoken.md) 
 ## Livrables 
 
 Introduction au Livrables 
