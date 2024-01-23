@@ -198,8 +198,8 @@ Foreach-Object {
             confirm_to_continue("Création de l'issue : $Issue_obj ")
             if($Issue_obj.member -eq $null){
               confirm_to_continue("gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $file_fullname")
-              # gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
-              gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $file_fullname
+              gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
+              # gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $file_fullname
             }else{
               confirm_to_continue("gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $file_fullname ")
               gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $file_fullname 
