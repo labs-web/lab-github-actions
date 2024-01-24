@@ -94,7 +94,7 @@ function create_issue($Issue_obj,$label){
 function edit_issue($Issue_obj,$label){
   debug "Edition de l'issue #$($Issue_obj.number) : $($Issue_obj.title)"
   confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label $label,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)")
-  gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label $label,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)
+  gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label $label --add-project $project_name --body-file $($Issue_obj.body_file)
 }
 
 function change_backlog_item_file_name($Issue_obj){
