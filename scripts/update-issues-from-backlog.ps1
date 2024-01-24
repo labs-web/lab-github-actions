@@ -1,4 +1,4 @@
-ï»¿# Create or updat backlog to issues
+# Create or updat backlog to issues
 
 . "./scripts/core.ps1"
 
@@ -18,9 +18,9 @@ confirm_to_continue("Update or Create issues for repository : $depot_path ")
 # Issue_obj : convert backlog_item_file to issue_obj
 function get_issue_object([String]$file_name, [String] $file_fullname){
   # $item_full_path = Split-Path  -Path $file_fullname
-  # RÃ¨gle : L'issue est existe si le fichier item commence par le numÃ©ro de l'issue
+  # Règle : L'issue est existe si le fichier item commence par le numéro de l'issue
   # Exemple des nom 
-  # issue: 2.conception.10.md : 2:ordre,conception:title,10:numÃ©ro de l'issue sur github
+  # issue: 2.conception.10.md : 2:ordre,conception:title,10:numéro de l'issue sur github
   # order_file:   3.codage.md
   # create_file : test.md
   # State : create_file,order_file,issue
@@ -34,11 +34,11 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
     member = $null
   }
   $file_name_array = $file_name.Split(".")
-  # si file is issue : l'Ã©lÃ©ment avant dernier est un nombre
+  # si file is issue : l'élément avant dernier est un nombre
   $last_element_index = $file_name_array.Length - 1 
   $avant_dernier_element = $file_name_array[$last_element_index - 1]
   $first_element = $file_name_array[0]
-  # Titre : si l'avant dernier Ã©lÃ©met est un nombre 
+  # Titre : si l'avant dernier élémet est un nombre 
   if($avant_dernier_element -match "^\d+$")
   {
     $Issue_obj.number = $avant_dernier_element
@@ -76,7 +76,7 @@ function create_issue($Issue_obj,$label){
 
   debug("Issue_obj : $Issue_obj ")
   if($Issue_obj.member -eq $null){
-    debug "CrÃ©ation nouvelle issue :  $($Issue_obj.title) "
+    debug "Création nouvelle issue :  $($Issue_obj.title) "
     confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label $label,new_issue --project $project_name  --body-file $($Issue_obj.body_file)")
     gh issue create --title $Issue_obj.title--label $label,new_issue --project $project_name  --body-file $($Issue_obj.body_file)
     
@@ -86,7 +86,7 @@ function create_issue($Issue_obj,$label){
 
     # Change file name 
   }else{
-    debug "CrÃ©ation nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
+    debug "Création nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
     confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label $label,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $($Issue_obj.body_file) ")
     gh issue create --title $Issue_obj.title --label $label,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $($Issue_obj.body_file)
   }
@@ -149,6 +149,8 @@ foreach($backlog_directory in $backlog_directories) {
     if($backlog_directory.Name -like "_*") {continue}
     $label = $backlog_directory.Name
     $directory = $backlog_directory.FullName 
-    $chaned_files = add_or_update_issues $directory $label
+    $return_value = add_or_update_issues $directory $label
+    $chaned_files = $return_value[$return_value.lenght - 1]
+    
 }
 save_and_send_pullrequest_if_files_changes $branche_name $chaned_files 
