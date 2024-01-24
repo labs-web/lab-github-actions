@@ -111,29 +111,40 @@ function change_backlog_item_file_name($Issue_obj){
     return $false
 }
 
+function add_or_update_issues($directory, $label){
+  debug "add_or_update_issues $directory, $label "
+  $backlog_items=  Get-ChildItem "$depot_path/backlog" -Filter *.md  
+  $add_or_update_issues_chaned_files = $false
+  foreach($backlog_item in $backlog_items) {
+
+    # file name and path
+    $file_fullname = $backlog_item.FullName
+    $file_name = $backlog_item.Name
+    $item_full_path = Split-Path  -Path $file_fullname
+  
+    # CreateIssue_obj that represente backlog_itm_file
+    $Issue_obj = get_issue_object $file_name  $file_fullname
+    if($Issue_obj.number -eq 0){ create_issue $Issue_obj
+    }else{ edit_issue $Issue_obj }
+    # Change backlog_item_file name
+    $add_or_update_issues_chaned_files = change_backlog_item_file_name $Issue_obj
+  }
+  return $add_or_update_issues_chaned_files
+}
 create_branch_to_do_pull_request $branche_name  
 
 # Traitement pour chaque fichier(item) dans /backlog
 $chaned_files = $false
-Get-ChildItem "$depot_path/backlog" -Filter *.md | 
-Foreach-Object {
 
-    # file name and path
-    $file_fullname = $_.FullName
-    $file_name = $_.Name
-    $item_full_path = Split-Path  -Path $file_fullname
+# $backlog_items =  Get-ChildItem "$depot_path/backlog" -Filter *.md 
+$backlog_directories=  Get-ChildItem "$depot_path/backlog"  -Directory
 
-    # CreateIssue_obj that represente backlog_itm_file
-    $Issue_obj = get_issue_object $file_name  $file_fullname
-
-    if($Issue_obj.number -eq 0){ 
-        create_issue $Issue_obj
-    }else{
-        edit_issue $Issue_obj
-    }
-
-    # Change backlog_item_file name
-    $chaned_files = change_backlog_item_file_name $Issue_obj
+foreach($backlog_directory in $backlog_directories) {
+    # Ne pas traiter les dossier qui commance par "_"
+    if($backlog_directory.Name -like "_*") {continue}
+    $label = $backlog_directory.Name
+    $directory = $backlog_directory.FullName 
+    $chaned_files = add_or_update_issues $directory $label
 }
 
 debug "Send pullrequest si changed file, chaned_files = $chaned_files "

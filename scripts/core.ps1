@@ -108,4 +108,5 @@ function save_and_send_pullrequest($branche_name){
   if(-not($pull_request_exist)){
       gh pr create --base develop --title $branche_name --body $branche_name
   }
+
 }
