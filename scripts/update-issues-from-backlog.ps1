@@ -87,6 +87,7 @@ function create_branch_to_do_pull_request {
   }
   
   # Delete local branch if exist
+  debug "Delete local branch update_backlog_files "
   git branch -D update_backlog_files
   git checkout -b update_backlog_files
 
