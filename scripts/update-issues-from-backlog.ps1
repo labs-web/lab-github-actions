@@ -71,13 +71,13 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
 }
 
 # Create new issue from $Issue_obj 
-function create_issue($Issue_obj){
+function create_issue($Issue_obj,$label){
 
   debug("Issue_obj : $Issue_obj ")
   if($Issue_obj.member -eq $null){
     debug "Création nouvelle issue :  $($Issue_obj.title) "
-    confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)")
-    gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)
+    confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label $label,new_issue --project $project_name  --body-file $($Issue_obj.body_file)")
+    gh issue create --title $Issue_obj.title--label $label,new_issue --project $project_name  --body-file $($Issue_obj.body_file)
     
     # Change $Issue_obj.number
     $remote_issue = find_issue_by_title $Issue_obj.title
@@ -86,15 +86,15 @@ function create_issue($Issue_obj){
     # Change file name 
   }else{
     debug "Création nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
-    confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $($Issue_obj.body_file) ")
-    gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $($Issue_obj.body_file)
+    confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label $label,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $($Issue_obj.body_file) ")
+    gh issue create --title $Issue_obj.title --label $label,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $($Issue_obj.body_file)
   }
 }
 
-function edit_issue($Issue_obj){
+function edit_issue($Issue_obj,$label){
   debug "Edition de l'issue #$($Issue_obj.number) : $($Issue_obj.title)"
-  confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)")
-  gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)
+  confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label $label,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)")
+  gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label $label,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)
 }
 
 function change_backlog_item_file_name($Issue_obj){
@@ -123,8 +123,8 @@ function add_or_update_issues($directory, $label){
     $item_full_path = Split-Path  -Path $file_fullname
     # CreateIssue_obj that represente backlog_itm_file
     $Issue_obj = get_issue_object $file_name  $file_fullname
-    if($Issue_obj.number -eq 0){ create_issue $Issue_obj
-    }else{ edit_issue $Issue_obj }
+    if($Issue_obj.number -eq 0){ create_issue $Issue_obj $label
+    }else{ edit_issue $Issue_obj $label }
     # Change backlog_item_file name
     $add_or_update_issues_chaned_files = change_backlog_item_file_name $Issue_obj
   }
