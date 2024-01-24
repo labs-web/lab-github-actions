@@ -22,7 +22,7 @@ $branche_name = "update_backlog_files"
 # Run cor script
 $depot_path = Get-Location
 
-"$depot_path/scripts/cor.ps1"
+./scripts/cor.ps1
 
 function confirm_to_continue($message) {
       
