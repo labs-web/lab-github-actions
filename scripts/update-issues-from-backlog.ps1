@@ -104,6 +104,7 @@ function change_backlog_item_file_name($Issue_obj){
     }
     return $false
 }
+
 create_branch_to_do_pull_request $branche_name  
 
 # Traitement pour chaque fichier(item) dans /backlog

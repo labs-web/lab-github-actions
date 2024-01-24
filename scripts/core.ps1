@@ -41,6 +41,7 @@ function confirm_to_continue($message) {
 # Trouver si une branch exist ou non
 function if_remote_branch_exist($branche_name){
   $branch_list = git branch -r
+  debug "Remot branches :  $branch_list "
   foreach($item in $branch_list ){
       $item = $item.Trim()
       if($item  -eq "origin/$branche_name"){
