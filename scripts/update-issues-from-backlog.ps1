@@ -5,6 +5,10 @@ $project_name = "labs-web"
 $debug = $true
 $confirm_message = $false
 
+# Global variable
+# $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
+$branche_name = "update_backlog_files"
+
 # Le sctipy doit être exécuter dans la racine de dépôt
 
 # 
@@ -48,46 +52,73 @@ function confirm_to_continue($message) {
   }
 }
 
-# $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
-$branche_name = "update_backlog_files"
 
+
+
+function if_remote_branch_exist($branche_name){
+  $branch_list = git branch -r
+  foreach($item in $branch_list ){
+      $item = $item.Trim()
+      if($item  -eq "origin/$branche_name"){
+          return $true
+      }
+  }
+  return $false
+}
 
 # Préparation de git for pullrequest
 function create_branch_to_do_pull_request {
 
   debug "Création ou changeement de branch : $branche_name  "
-  # git config --global user.name "ESSARRAJ"
-  # git config --global user.email "essarraj.fouad@gmail.com"
-  # git add .
-  # git commit -m "save to run update-issue-from-backlog.ps1"
-  # git checkout -b $branche_name 
+
+  # Solutin 1 : 
 
   git config --global user.name "ESSARRAJ"
   git config --global user.email "essarraj.fouad@gmail.com"
-  # Save local change in develop branche befor checkout update_backlog_files
   git add .
   git commit -m "save to run update-issue-from-backlog.ps1"
 
-  git fetch
-  $branch_update_backlog_files_exist = $false
-  $branch_list = git branch -r
-  foreach($branch_name in $branch_list ){
-      $branch_name = $branch_name.Trim()
-      if($branch_name  -eq "origin/update_backlog_files"){
-          $branch_update_backlog_files_exist = $true
-      }
+  # Delete remote branch 
+  if(if_remote_branch_exist $branche_name ){
+    confirm_to_continue("run git push origin --delete update_backlog_files ")
+    git push origin --delete update_backlog_files 
   }
-  if($branch_update_backlog_files_exist){
-      confirm_to_continue "run : git checkout update_backlog_files"
-      git checkout "update_backlog_files"
-      debug "Merge develop pour mettre à jour la branch "
-      confirm_to_continue "run : git merge develop"
-      git merge develop
-  }else{
-      Write-Host "git checkout -b update_backlog_files"
-      git checkout -b "update_backlog_files" 
-      git push --set-upstream origin update_backlog_files
-  }
+  
+
+
+  # Delete local branch if exist
+  git branch -D update_backlog_files
+  git checkout -b update_backlog_files
+
+
+  # Solution 2 : 
+
+  # git config --global user.name "ESSARRAJ"
+  # git config --global user.email "essarraj.fouad@gmail.com"
+  # # Save local change in develop branche befor checkout update_backlog_files
+  # git add .
+  # git commit -m "save to run update-issue-from-backlog.ps1"
+
+  # git fetch
+  # $branch_update_backlog_files_exist = $false
+  # $branch_list = git branch -r
+  # foreach($branch_name in $branch_list ){
+  #     $branch_name = $branch_name.Trim()
+  #     if($branch_name  -eq "origin/update_backlog_files"){
+  #         $branch_update_backlog_files_exist = $true
+  #     }
+  # }
+  # if($branch_update_backlog_files_exist){
+  #     confirm_to_continue "run : git checkout update_backlog_files"
+  #     git checkout "update_backlog_files"
+  #     debug "Merge develop pour mettre à jour la branch "
+  #     confirm_to_continue "run : git merge develop"
+  #     git merge develop
+  # }else{
+  #     Write-Host "git checkout -b update_backlog_files"
+  #     git checkout -b "update_backlog_files" 
+  #     git push --set-upstream origin update_backlog_files
+  # }
 
   # ??
   # git pull  
