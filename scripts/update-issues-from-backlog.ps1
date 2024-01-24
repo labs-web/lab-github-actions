@@ -2,7 +2,12 @@
 
 # Configutation de script
 $project_name = "labs-web"
+$debug = $true
+$confirm_message = $false
 
+# Global variable
+# $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
+$branche_name = "update_backlog_files"
 
 # Le sctipy doit être exécuter dans la racine de dépôt
 
@@ -23,32 +28,77 @@ $prev = [Console]::OutputEncoding
 # Functions : Message de confirmation
 #
 
+function debug($message){
+  if($debug){
+    Write-Host "`n - $message `n"
+  }
+}
+
 function confirm_to_continue($message) {
       
   $title    = $message 
   $question = "Are you sure you want to proceed?"
   $choices  = '&Yes', '&No'
 
-  Write-Host $message 
-  
-  # $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
-  # if ($decision -eq 1) {
-  #  exit
-  # } 
+  if($confirm_message){
+    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
+      if ($decision -eq 1) {
+      exit
+    } 
+  }else{
+    if($debug){
+      Write-Host "`n - $message `n"
+    }
+  }
 }
 
-$branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
 
+
+
+function if_remote_branch_exist($branche_name){
+  $branch_list = git branch -r
+  foreach($item in $branch_list ){
+      $item = $item.Trim()
+      if($item  -eq "origin/$branche_name"){
+          return $true
+      }
+  }
+  return $false
+}
+
+# Préparation de git for pullrequest
 function create_branch_to_do_pull_request {
+
+  debug "Création ou changeement de branch : $branche_name  "
+
+  # Solutin 1 : 
 
   git config --global user.name "ESSARRAJ"
   git config --global user.email "essarraj.fouad@gmail.com"
-  git checkout -b $branche_name 
+  git add .
+  git commit -m "save to run update-issue-from-backlog.ps1"
+
+  # Delete remote branch 
+  $remote_branch_exist = if_remote_branch_exist ($branche_name)
+  debug "Delete remote branch : remote_branch_exist = $remote_branch_exist "
+  if( $remote_branch_exist ){
+    confirm_to_continue("run git push origin --delete update_backlog_files ")
+    git push origin --delete update_backlog_files 
+  }
+  
+  # Delete local branch if exist
+  git branch -D update_backlog_files
+  git checkout -b update_backlog_files
 
 
-  # Préparation de git for pullrequest
+  # Solution 2 : 
+
   # git config --global user.name "ESSARRAJ"
   # git config --global user.email "essarraj.fouad@gmail.com"
+  # # Save local change in develop branche befor checkout update_backlog_files
+  # git add .
+  # git commit -m "save to run update-issue-from-backlog.ps1"
+
   # git fetch
   # $branch_update_backlog_files_exist = $false
   # $branch_list = git branch -r
@@ -59,35 +109,41 @@ function create_branch_to_do_pull_request {
   #     }
   # }
   # if($branch_update_backlog_files_exist){
-  #     Write-Host "git checkout update_backlog_files"
+  #     confirm_to_continue "run : git checkout update_backlog_files"
   #     git checkout "update_backlog_files"
+  #     debug "Merge develop pour mettre à jour la branch "
+  #     confirm_to_continue "run : git merge develop"
   #     git merge develop
   # }else{
   #     Write-Host "git checkout -b update_backlog_files"
   #     git checkout -b "update_backlog_files" 
   #     git push --set-upstream origin update_backlog_files
   # }
-  # git pull
+
+  # ??
+  # git pull  
   
 }
   
 function save_and_send_pullrequest(){
-
-confirm_to_continue("git push --set-upstream origin $branche_name")
+debug "Création de pullrequest pour enregistrer les modification de backlog files"
+confirm_to_continue("run : git push --set-upstream origin $branche_name")
 git push --set-upstream origin $branche_name
 git pull
 
-  # push to  update_backlog_files branch
+# push to  update_backlog_files branch
+confirm_to_continue("run : git push")
 git add .
 git commit -m "change backlog files"
 git push
 
 # Create pull request if not yet exist
+debug "Create pull request if not yet exist"
+confirm_to_continue "run : gh pr create --base develop --title $branche_name --body 'change backlog files'"
 $pull_request_exist = (gh pr list --json title | ConvertFrom-Json).title -contains "$branche_name"
 if(-not($pull_request_exist)){
     gh pr create --base develop --title $branche_name --body "change backlog files"
 }
-
 }
 
 # get organisation name
@@ -95,9 +151,7 @@ if(-not($pull_request_exist)){
 function find_issue_by_title($title){
   
   # confirm_to_continue("find $title in issues ")
-  
   $all_issues = gh issue list --json number,title | ConvertFrom-Json
-
   foreach($issue in  $all_issues){
     # Write-Host $Issue_obj.title
     if($issue.title -eq $title){
@@ -173,11 +227,8 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
 # Input
 $depot_path = Get-Location
 
-
 # Message de confirmation
 confirm_to_continue("Update or Create issues for repository : $depot_path ")
-
-
 
 create_branch_to_do_pull_request
 
@@ -197,17 +248,20 @@ Foreach-Object {
     if($Issue_obj.number -eq 0){
             confirm_to_continue("Création de l'issue : $Issue_obj ")
             if($Issue_obj.member -eq $null){
-              confirm_to_continue("gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $file_fullname")
+              debug "Création nouvelle issue :  $($Issue_obj.title) "
+              confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $file_fullname")
               gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
               # gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $file_fullname
             }else{
-              confirm_to_continue("gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $file_fullname ")
+              debug "Création nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
+              confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $file_fullname ")
               gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $file_fullname 
             }
     }else{
         # Edit existant issue
         # $Issue_obj.title += "test"
-        confirm_to_continue("gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $file_fullname")
+        debug "Edition de l'issue #$Issue_obj.number : $($Issue_obj.title)"
+        confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $file_fullname")
         # gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
         gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
     }
@@ -216,18 +270,21 @@ Foreach-Object {
     $Issue_obj_file_name = "$($Issue_obj.ordre).$($Issue_obj.title).$($Issue_obj.number).md"
     if(-not($Issue_obj_file_name -eq $file_name )){
         # Update file name
-        Write-Host "Rename $file_name to $Issue_obj_file_name "
-        Write-Host "$file_fullname"
-        Write-Host "$item_full_path\$Issue_obj_file_name"
+        debug "Rename $file_name to $Issue_obj_file_name "
+        debug "Source : $file_fullname"
+        debug "Destination : $item_full_path\$Issue_obj_file_name"
         Rename-Item -Path $file_fullname -NewName "$item_full_path/$Issue_obj_file_name"
         $chaned_files = $true
     }
 
 }
+
+debug "Send pullrequest si changed file, chaned_files = $chaned_files "
 if($chaned_files){
   save_and_send_pullrequest
+}else{
+  git checkout develop
 }
-
 
 # send pull request 
 
