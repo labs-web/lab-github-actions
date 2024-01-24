@@ -2,7 +2,7 @@
 
 	"Création chapitre": {
 		"scope": "markdown",
-		"prefix": "doc",
+		"prefix": "chapitre",
 		"body": [
 			"# $1",
 			"# Références";
