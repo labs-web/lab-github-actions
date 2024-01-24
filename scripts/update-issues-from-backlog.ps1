@@ -92,7 +92,7 @@ function edit_issue($Issue_obj){
 }
 
 function change_backlog_item_file_name($Issue_obj){
-  debug "Rename file : $Issue_obj"
+  # debug "Rename file : $Issue_obj"
   $Issue_obj_file_name = "$($Issue_obj.ordre).$($Issue_obj.title).$($Issue_obj.number).md"
     if(-not($Issue_obj_file_name -eq $Issue_obj.file_name )){
         # Update file name
