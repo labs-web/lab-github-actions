@@ -72,12 +72,18 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
 
 # Create new issue from $Issue_obj 
 function create_issue($Issue_obj){
-  confirm_to_continue("Création de l'issue : $Issue_obj ")
+
+  debug("Issue_obj : $Issue_obj ")
   if($Issue_obj.member -eq $null){
     debug "Création nouvelle issue :  $($Issue_obj.title) "
     confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)")
     gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)
-    # gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $($Issue_obj.body_file)
+    
+    # Change $Issue_obj.number
+    $remote_issue = find_issue_by_title $Issue_obj.title
+    $Issue_obj.number = $remote_issue.number
+
+    # Change file name 
   }else{
     debug "Création nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
     confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $($Issue_obj.body_file) ")
