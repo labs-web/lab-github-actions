@@ -20,7 +20,7 @@ $branche_name = "update_backlog_files"
 # - Nom de fichier : 1.nom_issue.23.md
 
 # Run cor script
-. _cor.ps1
+./cor.ps1
 
 function confirm_to_continue($message) {
       
