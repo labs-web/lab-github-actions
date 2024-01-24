@@ -1,9 +1,14 @@
 ﻿# Create or updat backlog to issues
 
+
 # Configutation de script
 $project_name = "labs-web"
 $debug = $true
 $confirm_message = $true
+
+Import-Module ./scripts/cor.psm1
+
+
 
 # Global variable
 # $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
@@ -28,7 +33,7 @@ $branche_name = "update_backlog_files"
 $depot_path = Get-Location
 
 
-./scripts/cor.ps1
+
 
 
 
