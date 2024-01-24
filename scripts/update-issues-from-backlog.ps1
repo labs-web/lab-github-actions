@@ -30,7 +30,7 @@ $prev = [Console]::OutputEncoding
 
 function debug($message){
   if($debug){
-    Write-Host "`n - $message `n"
+    Write-Host "`n - $message "
   }
 }
 
