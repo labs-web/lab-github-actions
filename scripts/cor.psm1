@@ -40,6 +40,6 @@ function confirm_to_continue($message) {
     }
   }
 
-  
+Write-Host "Run core ps1"
 
 confirm_to_continue("Exécution de cor.ps1")
