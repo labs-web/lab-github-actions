@@ -18,7 +18,7 @@ Le backlog est une liste ordonées des tâches
 - [10.using-gh-cli.37.md](./Backlog/10.using-gh-cli.37.md) 
 - [2.comprendre-github-actions.51.md](./Backlog/2.comprendre-github-actions.51.md) 
 - [20.code-review-pull-request.26.md](./Backlog/20.code-review-pull-request.26.md) 
-- [20.création-issues.40.md](./Backlog/20.création-issues.40.md) 
+- [20.update-issues-from-backlog.40.md](./Backlog/20.update-issues-from-backlog.40.md) 
 - [20.update-readme-file.36.md](./Backlog/20.update-readme-file.36.md) 
 - [20.vérification-affectation-tâche.32.md](./Backlog/20.vérification-affectation-tâche.32.md) 
 - [30.ci-laravel.3.md](./Backlog/30.ci-laravel.3.md) 
