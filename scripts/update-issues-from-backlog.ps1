@@ -271,8 +271,8 @@ Foreach-Object {
     if(-not($Issue_obj_file_name -eq $file_name )){
         # Update file name
         debug "Rename $file_name to $Issue_obj_file_name "
-        debug "Source : $file_fullname"
-        debug "Destination : $item_full_path\$Issue_obj_file_name"
+        debug "- Source : $file_fullname"
+        debug "- Destination : $item_full_path\$Issue_obj_file_name"
         Rename-Item -Path $file_fullname -NewName "$item_full_path/$Issue_obj_file_name"
         $chaned_files = $true
     }
@@ -282,9 +282,7 @@ Foreach-Object {
 debug "Send pullrequest si changed file, chaned_files = $chaned_files "
 if($chaned_files){
   save_and_send_pullrequest
-}else{
-  git checkout develop
 }
-
+git checkout develop
 # send pull request 
 
