@@ -24,6 +24,11 @@ $prev = [Console]::OutputEncoding
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
 
+# Run cor script
+$depot_path = Get-Location
+
+
+./scripts/cor.ps1
 #
 # Functions : Message de confirmation
 #
