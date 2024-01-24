@@ -8,7 +8,7 @@ Une autoformation pratique sur la réalisation des github actions
 
 Le backlog est une liste ordonées des tâches 
 
-- [0.validation-docs.49.md](./Backlog/0.validation-docs.49.md) 
+- [0.validation-docs.md](./Backlog/0.validation-docs.md) 
 - [1.backlog.2.md](./Backlog/1.backlog.2.md) 
 - [1.exposé-yml.14.md](./Backlog/1.exposé-yml.14.md) 
 - [10.check-file-changed.25.md](./Backlog/10.check-file-changed.25.md) 
@@ -18,7 +18,7 @@ Le backlog est une liste ordonées des tâches
 - [10.using-gh-cli.37.md](./Backlog/10.using-gh-cli.37.md) 
 - [2.comprendre-github-actions.51.md](./Backlog/2.comprendre-github-actions.51.md) 
 - [20.code-review-pull-request.26.md](./Backlog/20.code-review-pull-request.26.md) 
-- [20.création-issues.40.md](./Backlog/20.création-issues.40.md) 
+- [20.update-issues-from-backlog.40.md](./Backlog/20.update-issues-from-backlog.40.md) 
 - [20.update-readme-file.36.md](./Backlog/20.update-readme-file.36.md) 
 - [20.vérification-affectation-tâche.32.md](./Backlog/20.vérification-affectation-tâche.32.md) 
 - [30.ci-laravel.3.md](./Backlog/30.ci-laravel.3.md) 
