@@ -48,38 +48,49 @@ function confirm_to_continue($message) {
   }
 }
 
-$branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
+# $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
+$branche_name = "update_backlog_files"
 
+
+# Préparation de git for pullrequest
 function create_branch_to_do_pull_request {
-  debug "Création de branch : $branche_name  "
-  git config --global user.name "ESSARRAJ"
-  git config --global user.email "essarraj.fouad@gmail.com"
-  git add .
-  git commit -m "save to run update-issue-from-backlog.ps1"
-  git checkout -b $branche_name 
 
-  # Préparation de git for pullrequest
+  debug "Création ou changeement de branch : $branche_name  "
   # git config --global user.name "ESSARRAJ"
   # git config --global user.email "essarraj.fouad@gmail.com"
-  # git fetch
-  # $branch_update_backlog_files_exist = $false
-  # $branch_list = git branch -r
-  # foreach($branch_name in $branch_list ){
-  #     $branch_name = $branch_name.Trim()
-  #     if($branch_name  -eq "origin/update_backlog_files"){
-  #         $branch_update_backlog_files_exist = $true
-  #     }
-  # }
-  # if($branch_update_backlog_files_exist){
-  #     Write-Host "git checkout update_backlog_files"
-  #     git checkout "update_backlog_files"
-  #     git merge develop
-  # }else{
-  #     Write-Host "git checkout -b update_backlog_files"
-  #     git checkout -b "update_backlog_files" 
-  #     git push --set-upstream origin update_backlog_files
-  # }
-  # git pull
+  # git add .
+  # git commit -m "save to run update-issue-from-backlog.ps1"
+  # git checkout -b $branche_name 
+
+  git config --global user.name "ESSARRAJ"
+  git config --global user.email "essarraj.fouad@gmail.com"
+  # Save local change in develop branche befor checkout update_backlog_files
+  git add .
+  git commit -m "save to run update-issue-from-backlog.ps1"
+
+  git fetch
+  $branch_update_backlog_files_exist = $false
+  $branch_list = git branch -r
+  foreach($branch_name in $branch_list ){
+      $branch_name = $branch_name.Trim()
+      if($branch_name  -eq "origin/update_backlog_files"){
+          $branch_update_backlog_files_exist = $true
+      }
+  }
+  if($branch_update_backlog_files_exist){
+      confirm_to_continue "run : git checkout update_backlog_files"
+      git checkout "update_backlog_files"
+      debug "Merge develop pour mettre à jour la branch "
+      confirm_to_continue "run : git merge develop"
+      git merge develop
+  }else{
+      Write-Host "git checkout -b update_backlog_files"
+      git checkout -b "update_backlog_files" 
+      git push --set-upstream origin update_backlog_files
+  }
+
+  # ??
+  # git pull  
   
 }
   
