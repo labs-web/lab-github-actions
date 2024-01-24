@@ -115,10 +115,7 @@ function change_backlog_item_file_name($Issue_obj){
 $add_or_update_issues_iteration = 0
 function add_or_update_issues($directory, $label){
 
-  # Traitement de trois fichiers en cas de test
-  debug("Test : add_or_update_issues_iteration =  $add_or_update_issues_iteration")
-  $add_or_update_issues_iteration = $add_or_update_issues_iteration + 1
-  if($test -and  $add_or_update_issues_iteration -gt 3 ) {return }
+ 
 
   debug "----`n - Update or Create issues for : $label `n - ----"
 
@@ -135,6 +132,10 @@ function add_or_update_issues($directory, $label){
     }else{ edit_issue $Issue_obj $label }
     # Change backlog_item_file name
     $add_or_update_issues_chaned_files = change_backlog_item_file_name $Issue_obj
+
+    # En cas de test traiter un seul fichier par dossier
+    if($test ) { break }
+
   }
   return $add_or_update_issues_chaned_files
 }
