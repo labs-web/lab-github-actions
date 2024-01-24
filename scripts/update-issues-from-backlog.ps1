@@ -282,6 +282,8 @@ Foreach-Object {
 debug "Send pullrequest si changed file, chaned_files = $chaned_files "
 if($chaned_files){
   save_and_send_pullrequest
+}else{
+  git checkout develop
 }
 
 # send pull request 
