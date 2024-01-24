@@ -1,4 +1,4 @@
-name: create-or-update-issues
+name: update-issues-from-backlog
 on:
     push:
       branches: [ "develop" ]
@@ -20,9 +20,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2 # inclure l'history de deux commit
-      - name: run script.ps1
+      - name: run script-create-issues.ps1
         shell: pwsh
-        run: ./github-actions/création-issues/script-create-issues.ps1
+        run: ./scripts/update-issues-from-backlog.ps1
         env:
           GH_TOKEN: ${{ secrets.GHPROJECT_TOKEN }}
           # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
