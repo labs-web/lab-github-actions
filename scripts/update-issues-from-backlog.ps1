@@ -3,7 +3,7 @@
 # Configutation de script
 $project_name = "labs-web"
 $debug = $true
-$confirm_message = $false
+$confirm_message = $true
 
 # Global variable
 # $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
@@ -29,30 +29,6 @@ $depot_path = Get-Location
 
 
 ./scripts/cor.ps1
-#
-# Functions : Message de confirmation
-#
-
-
-
-function confirm_to_continue($message) {
-      
-  $title    = $message 
-  $question = "Are you sure you want to proceed?"
-  $choices  = '&Yes', '&No'
-
-  if($confirm_message){
-    $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
-      if ($decision -eq 1) {
-      exit
-    } 
-  }else{
-    if($debug){
-      Write-Host "`n - $message `n"
-    }
-  }
-}
-
 
 
 
