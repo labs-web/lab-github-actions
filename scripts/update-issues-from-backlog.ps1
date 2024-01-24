@@ -1,5 +1,7 @@
 ﻿# Create or updat backlog to issues
 
+. "./scripts/cor.ps1"
+
 
 # Configutation de script
 $project_name = "labs-web"
@@ -7,7 +9,6 @@ $debug = $true
 $confirm_message = $false
 
 
-. "./scripts/cor.ps1"
 
 
 
