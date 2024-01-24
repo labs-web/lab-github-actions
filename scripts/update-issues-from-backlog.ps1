@@ -10,7 +10,7 @@
 # - Nom de fichier : 1.nom_issue.23.md
 
 
-. "./scripts/cor.ps1"
+. "./scripts/core.ps1"
 
 # Core : Params
 $debug = $true
