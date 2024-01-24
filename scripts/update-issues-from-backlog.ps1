@@ -19,14 +19,14 @@ $branche_name = "update_backlog_files"
 # - Affectation de l'issue à TeamPlanning
 # - Nom de fichier : 1.nom_issue.23.md
 
-# Run cor script
-$depot_path = Get-Location
 
 # Encoding : UTF8
 PSDefaultParameterValues['*:Encoding'] = 'utf8'
 $prev = [Console]::OutputEncoding
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
+# Run cor script
+$depot_path = Get-Location
 
 
 ./scripts/cor.ps1
