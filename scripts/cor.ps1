@@ -1,5 +1,9 @@
 
 
+$PSDefaultParameterValues['*:Encoding'] = 'utf8'
+$prev = [Console]::OutputEncoding
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
 
 #
 # Functions : Message de confirmation
