@@ -7,8 +7,10 @@ $debug = $true
 $confirm_message = $true
 
 Write-Host "Start Import-Module ./scripts/cor.psm1"
-Import-Module ./scripts/cor.psm1
+# Import-Module ./scripts/cor.psm1
+. "./scripts/cor.psm1"
 Write-Host "end Import-Module ./scripts/cor.psm1"
+
 
 
 
