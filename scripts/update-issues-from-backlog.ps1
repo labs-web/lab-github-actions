@@ -9,6 +9,7 @@ $project_name = "labs-web"
 $depot_path = Get-Location
 # Core : Params
 $debug = $true
+$test = $true
 $confirm_message = $false
 
 # Message de confirmation
@@ -111,7 +112,14 @@ function change_backlog_item_file_name($Issue_obj){
     return $false
 }
 
+$add_or_update_issues_iteration = 0
 function add_or_update_issues($directory, $label){
+
+  # Traitement de trois fichiers en cas de test
+  debug($add_or_update_issues_iteration)
+  $add_or_update_issues_iteration += 1
+  if($test -and  $add_or_update_issues_iteration -gt 3 ) {return }
+
   debug "----`n - Update or Create issues for : $label `n - ----"
 
   $backlog_items=  Get-ChildItem $directory -Filter *.md  

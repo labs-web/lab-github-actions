@@ -4,10 +4,6 @@ on:
       branches: [ "develop" ]
       paths:
         - backlog/**
-    # pull_request:
-    #   branches: [ "develop" ]
-    #   paths:
-    #     - backlog/**
 permissions: write-all
 jobs:
   create-or-update-issues-job:
