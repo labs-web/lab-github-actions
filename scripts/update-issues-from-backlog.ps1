@@ -1,109 +1,20 @@
 ﻿# Create or updat backlog to issues
 
-# Le sctipy doit être exécuter dans la racine de dépôt
-# 
-# Description
-# 
-# - Création des issues 
-# - Mise à jour des issues 
-# - Affectation de l'issue à TeamPlanning
-# - Nom de fichier : 1.nom_issue.23.md
-
-
 . "./scripts/core.ps1"
 
-# Core : Params
-$debug = $true
-$confirm_message = $false
+
 # Global variable
 $branche_name = "update_backlog_files"
 $project_name = "labs-web"
 $depot_path = Get-Location
+# Core : Params
+$debug = $true
+$confirm_message = $false
 
-# Préparation de git for pullrequest
-function create_branch_to_do_pull_request {
+# Message de confirmation
+confirm_to_continue("Update or Create issues for repository : $depot_path ")
 
-  debug "Création ou changeement de branch : $branche_name  "
-
-  # Solutin 1 : 
-
-  git config --global user.name "ESSARRAJ"
-  git config --global user.email "essarraj.fouad@gmail.com"
-  git add .
-  git commit -m "save to run update-issue-from-backlog.ps1"
-
-  # Delete remote branch 
-  $remote_branch_exist = if_remote_branch_exist ($branche_name)
-  debug "Delete remote branch : remote_branch_exist = $remote_branch_exist "
-  if( $remote_branch_exist ){
-    confirm_to_continue("run git push origin --delete $branche_name ")
-    git push origin --delete $branche_name 
-  }
-  
-  # Delete local branch if exist
-  debug "Delete local branch $branche_name "
-  git branch -D $branche_name
-  git checkout -b $branche_name
-
-
-  # Solution 2 : 
-
-  # git config --global user.name "ESSARRAJ"
-  # git config --global user.email "essarraj.fouad@gmail.com"
-  # # Save local change in develop branche befor checkout $branche_name
-  # git add .
-  # git commit -m "save to run update-issue-from-backlog.ps1"
-
-  # git fetch
-  # $branch_$branche_name_exist = $false
-  # $branch_list = git branch -r
-  # foreach($branch_name in $branch_list ){
-  #     $branch_name = $branch_name.Trim()
-  #     if($branch_name  -eq "origin/$branche_name"){
-  #         $branch_$branche_name_exist = $true
-  #     }
-  # }
-  # if($branch_$branche_name_exist){
-  #     confirm_to_continue "run : git checkout $branche_name"
-  #     git checkout "$branche_name"
-  #     debug "Merge develop pour mettre à jour la branch "
-  #     confirm_to_continue "run : git merge develop"
-  #     git merge develop
-  # }else{
-  #     Write-Host "git checkout -b $branche_name"
-  #     git checkout -b "$branche_name" 
-  #     git push --set-upstream origin $branche_name
-  # }
-
-  # ??
-  # git pull  
-  
-}
-  
-function save_and_send_pullrequest(){
-debug "Création de pullrequest pour enregistrer les modification de backlog files"
-confirm_to_continue("run : git push --set-upstream origin $branche_name")
-git push --set-upstream origin $branche_name
-git pull
-
-# push to  $branche_name branch
-confirm_to_continue("run : git push")
-git add .
-git commit -m "change backlog files"
-git push
-
-# Create pull request if not yet exist
-debug "Create pull request if not yet exist"
-confirm_to_continue "run : gh pr create --base develop --title $branche_name --body 'change backlog files'"
-$pull_request_exist = (gh pr list --json title | ConvertFrom-Json).title -contains "$branche_name"
-if(-not($pull_request_exist)){
-    gh pr create --base develop --title $branche_name --body "change backlog files"
-}
-}
-
-# get organisation name
-
-
+# Issue_obj : convert backlog_item_file to issue_obj
 function get_issue_object([String]$file_name, [String] $file_fullname){
   $item_full_path = Split-Path  -Path $file_fullname
   # Règle : L'issue est existe si le fichier item commence par le numéro de l'issue
@@ -124,8 +35,6 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
   $last_element_index = $file_name_array.Length - 1 
   $avant_dernier_element = $file_name_array[$last_element_index - 1]
   $first_element = $file_name_array[0]
-
-
   # Titre : si l'avant dernier élémet est un nombre 
   if($avant_dernier_element -match "^\d+$")
   {
@@ -136,8 +45,6 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
     $Issue_obj.title = $file_name_array[$last_element_index - 1]
     $Issue_obj.number = 0
   }
-
-
   # si number = 0 et issue existe dans github
   $issue = find_issue_by_title $Issue_obj.title
   if($Issue_obj.number -eq 0){
@@ -145,7 +52,6 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
       $Issue_obj.number = $issue.number
     }
   }
-    
   # Dection de membre 
   $membre_title_array = $Issue_obj.title.Split("_")
   if($membre_title_array.Length -eq 2){
@@ -153,26 +59,16 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
   }else{ 
     $Issue_obj.member = $null
   }
-   
-    
   # L'odre est le premier nombre
   if($first_element -match "^\d+$") { 
     $Issue_obj.ordre = $first_element
-  } 
-  else{ 
+  } else{ 
     $Issue_obj.ordre = "0"
   }
-  
-  
   return $Issue_obj
 }
 
-
-
-# Message de confirmation
-confirm_to_continue("Update or Create issues for repository : $depot_path ")
-
-create_branch_to_do_pull_request
+create_branch_to_do_pull_request $branche_name  
 
 # Traitement pour chaque fichier(item) dans /backlog
 $chaned_files = $false
@@ -223,8 +119,6 @@ Foreach-Object {
 
 debug "Send pullrequest si changed file, chaned_files = $chaned_files "
 if($chaned_files){
-  save_and_send_pullrequest
+  save_and_send_pullrequest $branche_name
 }
 git checkout develop
-# send pull request 
-
