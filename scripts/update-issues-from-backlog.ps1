@@ -33,11 +33,7 @@ $depot_path = Get-Location
 # Functions : Message de confirmation
 #
 
-function debug($message){
-  if($debug){
-    Write-Host "`n - $message "
-  }
-}
+
 
 function confirm_to_continue($message) {
       
