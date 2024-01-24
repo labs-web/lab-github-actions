@@ -15,6 +15,11 @@ $confirm_message = $true
 # Functions : Message de confirmation
 #
 
+function debug($message){
+  if($debug){
+    Write-Host "`n - $message "
+  }
+}
 
 
 function confirm_to_continue($message) {
@@ -36,10 +41,5 @@ function confirm_to_continue($message) {
   }
 
   
-function debug($message){
-    if($debug){
-      Write-Host "`n - $message "
-    }
-}
 
 confirm_to_continue("Exécution de cor.ps1")
