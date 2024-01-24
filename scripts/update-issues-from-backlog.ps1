@@ -81,7 +81,7 @@ function create_branch_to_do_pull_request {
   # Delete remote branch 
   $remote_branch_exist = if_remote_branch_exist ($branche_name)
   debug "Delete remote branch : remote_branch_exist = $remote_branch_exist "
-  if( remote_branch_exist ){
+  if( $remote_branch_exist ){
     confirm_to_continue("run git push origin --delete update_backlog_files ")
     git push origin --delete update_backlog_files 
   }
