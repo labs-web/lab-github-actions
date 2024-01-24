@@ -1,23 +1,6 @@
 ﻿# Create or updat backlog to issues
 
-. "./scripts/cor.ps1"
-
-
-# Configutation de script
-$project_name = "labs-web"
-$debug = $true
-$confirm_message = $false
-
-
-
-
-
-# Global variable
-# $branche_name = "update_backlog_files-" + (Get-Date).ToString('MM-dd-yyyy-hh-mm-ss')
-$branche_name = "update_backlog_files"
-
 # Le sctipy doit être exécuter dans la racine de dépôt
-
 # 
 # Description
 # 
@@ -26,29 +9,16 @@ $branche_name = "update_backlog_files"
 # - Affectation de l'issue à TeamPlanning
 # - Nom de fichier : 1.nom_issue.23.md
 
-# $PSDefaultParameterValues['*:Encoding'] = 'utf8'
-# $prev = [Console]::OutputEncoding
-# [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
+. "./scripts/cor.ps1"
 
-# Run cor script
+# Core : Params
+$debug = $true
+$confirm_message = $false
+# Global variable
+$branche_name = "update_backlog_files"
+$project_name = "labs-web"
 $depot_path = Get-Location
-
-
-
-
-
-
-function if_remote_branch_exist($branche_name){
-  $branch_list = git branch -r
-  foreach($item in $branch_list ){
-      $item = $item.Trim()
-      if($item  -eq "origin/$branche_name"){
-          return $true
-      }
-  }
-  return $false
-}
 
 # Préparation de git for pullrequest
 function create_branch_to_do_pull_request {
@@ -133,18 +103,6 @@ if(-not($pull_request_exist)){
 
 # get organisation name
 
-function find_issue_by_title($title){
-  
-  # confirm_to_continue("find $title in issues ")
-  $all_issues = gh issue list --json number,title | ConvertFrom-Json
-  foreach($issue in  $all_issues){
-    # Write-Host $Issue_obj.title
-    if($issue.title -eq $title){
-      return $issue
-    }
-  }
-  return $null
-}
 
 function get_issue_object([String]$file_name, [String] $file_fullname){
   $item_full_path = Split-Path  -Path $file_fullname
@@ -209,8 +167,7 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
   return $Issue_obj
 }
 
-# Input
-$depot_path = Get-Location
+
 
 # Message de confirmation
 confirm_to_continue("Update or Create issues for repository : $depot_path ")
