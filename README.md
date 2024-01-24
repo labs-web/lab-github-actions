@@ -8,10 +8,7 @@ Une autoformation pratique sur la réalisation des github actions
 
 Le backlog est une liste ordonées des tâches 
 
-- [chapitre](./Backlog/chapitre) 
-- [exposé](./Backlog/exposé) 
-- [feature](./Backlog/feature) 
-- [sous-tâche](./Backlog/sous-tâche) 
+- [0.validation-docs.49.md](./Backlog/0.validation-docs.49.md) 
 ## Livrables 
 
 Introduction au Livrables 
