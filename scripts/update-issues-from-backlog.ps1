@@ -112,16 +112,15 @@ function change_backlog_item_file_name($Issue_obj){
 }
 
 function add_or_update_issues($directory, $label){
-  debug "add_or_update_issues $directory, $label "
-  $backlog_items=  Get-ChildItem "$depot_path/backlog" -Filter *.md  
+  debug "----`n - Update or Create issues for : $label `n - ----"
+
+  $backlog_items=  Get-ChildItem $directory -Filter *.md  
   $add_or_update_issues_chaned_files = $false
   foreach($backlog_item in $backlog_items) {
-
     # file name and path
     $file_fullname = $backlog_item.FullName
     $file_name = $backlog_item.Name
     $item_full_path = Split-Path  -Path $file_fullname
-  
     # CreateIssue_obj that represente backlog_itm_file
     $Issue_obj = get_issue_object $file_name  $file_fullname
     if($Issue_obj.number -eq 0){ create_issue $Issue_obj
@@ -131,14 +130,11 @@ function add_or_update_issues($directory, $label){
   }
   return $add_or_update_issues_chaned_files
 }
+
+# Create or Update issues
 create_branch_to_do_pull_request $branche_name  
-
-# Traitement pour chaque fichier(item) dans /backlog
 $chaned_files = $false
-
-# $backlog_items =  Get-ChildItem "$depot_path/backlog" -Filter *.md 
 $backlog_directories=  Get-ChildItem "$depot_path/backlog"  -Directory
-
 foreach($backlog_directory in $backlog_directories) {
     # Ne pas traiter les dossier qui commance par "_"
     if($backlog_directory.Name -like "_*") {continue}
@@ -146,9 +142,4 @@ foreach($backlog_directory in $backlog_directories) {
     $directory = $backlog_directory.FullName 
     $chaned_files = add_or_update_issues $directory $label
 }
-
-debug "Send pullrequest si changed file, chaned_files = $chaned_files "
-if($chaned_files){
-  save_and_send_pullrequest $branche_name
-}
-git checkout develop
+save_and_send_pullrequest_if_files_changes $branche_name $chaned_files 

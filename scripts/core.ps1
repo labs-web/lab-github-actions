@@ -89,7 +89,15 @@ function create_branch_to_do_pull_request ($branche_name) {
 
 }
 
-function save_and_send_pullrequest($branche_name){
+function save_and_send_pullrequest_if_files_changes($branche_name, $chaned_files ){
+
+  debug "Send pullrequest si changed file, chaned_files = $chaned_files "
+
+  if(-not($chaned_files)){ 
+    git checkout develop
+    return $false 
+  }
+
   debug "Création de pullrequest pour enregistrer les modification de backlog files"
   confirm_to_continue("run : git push --set-upstream origin $branche_name")
   git push --set-upstream origin $branche_name
@@ -108,5 +116,8 @@ function save_and_send_pullrequest($branche_name){
   if(-not($pull_request_exist)){
       gh pr create --base develop --title $branche_name --body $branche_name
   }
+
+  git checkout develop
+  return $true
 
 }
