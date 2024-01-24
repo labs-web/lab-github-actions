@@ -76,12 +76,12 @@ function create_branch_to_do_pull_request ($branche_name) {
   git commit -m "save to run update-issue-from-backlog.ps1"
 
   # Delete remote branch 
-  $remote_branch_exist = if_remote_branch_exist ($branche_name)
-  debug "Delete remote branch : remote_branch_exist = $remote_branch_exist "
-  if( $remote_branch_exist ){
+  # $remote_branch_exist = if_remote_branch_exist ($branche_name)
+  # debug "Delete remote branch : remote_branch_exist = $remote_branch_exist "
+  # if( $remote_branch_exist ){
     confirm_to_continue("run git push origin --delete $branche_name ")
     git push origin --delete $branche_name 
-  }
+  # }
   
   # Delete local branch if exist
   debug "Delete local branch $branche_name "
