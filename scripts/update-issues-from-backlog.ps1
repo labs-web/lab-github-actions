@@ -22,6 +22,13 @@ $branche_name = "update_backlog_files"
 # Run cor script
 $depot_path = Get-Location
 
+# Encoding : UTF8
+PSDefaultParameterValues['*:Encoding'] = 'utf8'
+$prev = [Console]::OutputEncoding
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+
+
 ./scripts/cor.ps1
 
 function confirm_to_continue($message) {
