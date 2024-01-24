@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2 # inclure l'history de deux commit
+          ref: 'update_backlog_files'
       - name: run script-create-issues.ps1
         shell: pwsh
         run: ./scripts/update-issues-from-backlog.ps1
