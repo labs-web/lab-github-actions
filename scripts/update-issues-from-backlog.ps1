@@ -71,24 +71,30 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
 }
 
 # Create new issue from $Issue_obj 
-function create_issue($Issue_obj){
-  confirm_to_continue("Création de l'issue : $Issue_obj ")
+function create_issue($Issue_obj,$label){
+
+  debug("Issue_obj : $Issue_obj ")
   if($Issue_obj.member -eq $null){
     debug "Création nouvelle issue :  $($Issue_obj.title) "
-    confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)")
-    gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)
-    # gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $($Issue_obj.body_file)
+    confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label $label,new_issue --project $project_name  --body-file $($Issue_obj.body_file)")
+    gh issue create --title $Issue_obj.title--label $label,new_issue --project $project_name  --body-file $($Issue_obj.body_file)
+    
+    # Change $Issue_obj.number
+    $remote_issue = find_issue_by_title $Issue_obj.title
+    $Issue_obj.number = $remote_issue.number
+
+    # Change file name 
   }else{
     debug "Création nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
-    confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $($Issue_obj.body_file) ")
-    gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $($Issue_obj.body_file)
+    confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label $label,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $($Issue_obj.body_file) ")
+    gh issue create --title $Issue_obj.title --label $label,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $($Issue_obj.body_file)
   }
 }
 
-function edit_issue($Issue_obj){
+function edit_issue($Issue_obj,$label){
   debug "Edition de l'issue #$($Issue_obj.number) : $($Issue_obj.title)"
-  confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)")
-  gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)
+  confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label $label,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)")
+  gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label $label --add-project $project_name --body-file $($Issue_obj.body_file)
 }
 
 function change_backlog_item_file_name($Issue_obj){
@@ -105,33 +111,35 @@ function change_backlog_item_file_name($Issue_obj){
     return $false
 }
 
-create_branch_to_do_pull_request $branche_name  
+function add_or_update_issues($directory, $label){
+  debug "----`n - Update or Create issues for : $label `n - ----"
 
-# Traitement pour chaque fichier(item) dans /backlog
-$chaned_files = $false
-Get-ChildItem "$depot_path/backlog" -Filter *.md | 
-Foreach-Object {
-
+  $backlog_items=  Get-ChildItem $directory -Filter *.md  
+  $add_or_update_issues_chaned_files = $false
+  foreach($backlog_item in $backlog_items) {
     # file name and path
-    $file_fullname = $_.FullName
-    $file_name = $_.Name
+    $file_fullname = $backlog_item.FullName
+    $file_name = $backlog_item.Name
     $item_full_path = Split-Path  -Path $file_fullname
-
     # CreateIssue_obj that represente backlog_itm_file
     $Issue_obj = get_issue_object $file_name  $file_fullname
-
-    if($Issue_obj.number -eq 0){ 
-        create_issue $Issue_obj
-    }else{
-        edit_issue $Issue_obj
-    }
-
+    if($Issue_obj.number -eq 0){ create_issue $Issue_obj $label
+    }else{ edit_issue $Issue_obj $label }
     # Change backlog_item_file name
-    $chaned_files = change_backlog_item_file_name $Issue_obj
+    $add_or_update_issues_chaned_files = change_backlog_item_file_name $Issue_obj
+  }
+  return $add_or_update_issues_chaned_files
 }
 
-debug "Send pullrequest si changed file, chaned_files = $chaned_files "
-if($chaned_files){
-  save_and_send_pullrequest $branche_name
+# Create or Update issues
+create_branch_to_do_pull_request $branche_name  
+$chaned_files = $false
+$backlog_directories=  Get-ChildItem "$depot_path/backlog"  -Directory
+foreach($backlog_directory in $backlog_directories) {
+    # Ne pas traiter les dossier qui commance par "_"
+    if($backlog_directory.Name -like "_*") {continue}
+    $label = $backlog_directory.Name
+    $directory = $backlog_directory.FullName 
+    $chaned_files = add_or_update_issues $directory $label
 }
-git checkout develop
+save_and_send_pullrequest_if_files_changes $branche_name $chaned_files 
