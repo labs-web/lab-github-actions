@@ -16,7 +16,7 @@ confirm_to_continue("Update or Create issues for repository : $depot_path ")
 
 # Issue_obj : convert backlog_item_file to issue_obj
 function get_issue_object([String]$file_name, [String] $file_fullname){
-  $item_full_path = Split-Path  -Path $file_fullname
+  # $item_full_path = Split-Path  -Path $file_fullname
   # Règle : L'issue est existe si le fichier item commence par le numéro de l'issue
   # Exemple des nom 
   # issue: 2.conception.10.md : 2:ordre,conception:title,10:numéro de l'issue sur github
@@ -28,6 +28,8 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
     title = ''
     labels = ''
     state = ''
+    body_file = $file_fullname
+    file_name = $file_name
     member = $null
   }
   $file_name_array = $file_name.Split(".")
@@ -68,6 +70,39 @@ function get_issue_object([String]$file_name, [String] $file_fullname){
   return $Issue_obj
 }
 
+# Create new issue from $Issue_obj 
+function create_issue($Issue_obj){
+  confirm_to_continue("Création de l'issue : $Issue_obj ")
+  if($Issue_obj.member -eq $null){
+    debug "Création nouvelle issue :  $($Issue_obj.title) "
+    confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)")
+    gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $($Issue_obj.body_file)
+    # gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $($Issue_obj.body_file)
+  }else{
+    debug "Création nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
+    confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $($Issue_obj.body_file) ")
+    gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $($Issue_obj.body_file)
+  }
+}
+
+function edit_issue($Issue_obj){
+  debug "Edition de l'issue #$($Issue_obj.number) : $($Issue_obj.title)"
+  confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)")
+  gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $($Issue_obj.body_file)
+}
+
+function change_backlog_item_file_name($Issue_obj){
+  $Issue_obj_file_name = "$($Issue_obj.ordre).$($Issue_obj.title).$($Issue_obj.number).md"
+    if(-not($Issue_obj_file_name -eq $Issue_obj.file_name )){
+        # Update file name
+        debug "Rename $file_name to $Issue_obj_file_name "
+        debug "- Source : $file_fullname"
+        debug "- Destination : $item_full_path\$Issue_obj_file_name"
+        Rename-Item -Path $file_fullname -NewName "$item_full_path/$Issue_obj_file_name"
+        return $true
+    }
+    return $false
+}
 create_branch_to_do_pull_request $branche_name  
 
 # Traitement pour chaque fichier(item) dans /backlog
@@ -79,42 +114,18 @@ Foreach-Object {
     $file_fullname = $_.FullName
     $file_name = $_.Name
     $item_full_path = Split-Path  -Path $file_fullname
-    # issue_object
+
+    # CreateIssue_obj that represente backlog_itm_file
     $Issue_obj = get_issue_object $file_name  $file_fullname
 
-    # Create new issue 
-    if($Issue_obj.number -eq 0){
-            confirm_to_continue("Création de l'issue : $Issue_obj ")
-            if($Issue_obj.member -eq $null){
-              debug "Création nouvelle issue :  $($Issue_obj.title) "
-              confirm_to_continue("run : gh issue create --title $($Issue_obj.title)--label feature,new_issue --project $project_name  --body-file $file_fullname")
-              gh issue create --title $Issue_obj.title--label feature,new_issue --project $project_name  --body-file $file_fullname
-              # gh issue create --title $Issue_obj.title--label feature,new_issue  --body-file $file_fullname
-            }else{
-              debug "Création nouvelle issue :  $($Issue_obj.title) pour membre $($Issue_obj.member) "
-              confirm_to_continue("run : gh issue create --title $($Issue_obj.title) --label feature,new_issue --assignee $($Issue_obj.member)  --project $project_name  --body-file $file_fullname ")
-              gh issue create --title $Issue_obj.title --label feature,new_issue --assignee $Issue_obj.member  --project $project_name  --body-file $file_fullname 
-            }
+    if($Issue_obj.number -eq 0){ 
+        create_issue $Issue_obj
     }else{
-        # Edit existant issue
-        # $Issue_obj.title += "test"
-        debug "Edition de l'issue #$Issue_obj.number : $($Issue_obj.title)"
-        confirm_to_continue("run gh issue edit $($Issue_obj.number) --title $($Issue_obj.title) --add-label feature,new_issue --add-project $project_name --body-file $file_fullname")
-        # gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
-        gh issue edit $Issue_obj.number --title $Issue_obj.title --add-label feature,new_issue --add-project $project_name --body-file $file_fullname
+        edit_issue $Issue_obj
     }
 
-    # Change file name if is incorrect
-    $Issue_obj_file_name = "$($Issue_obj.ordre).$($Issue_obj.title).$($Issue_obj.number).md"
-    if(-not($Issue_obj_file_name -eq $file_name )){
-        # Update file name
-        debug "Rename $file_name to $Issue_obj_file_name "
-        debug "- Source : $file_fullname"
-        debug "- Destination : $item_full_path\$Issue_obj_file_name"
-        Rename-Item -Path $file_fullname -NewName "$item_full_path/$Issue_obj_file_name"
-        $chaned_files = $true
-    }
-
+    # Change backlog_item_file name
+    $chaned_files = change_backlog_item_file_name $Issue_obj
 }
 
 debug "Send pullrequest si changed file, chaned_files = $chaned_files "
