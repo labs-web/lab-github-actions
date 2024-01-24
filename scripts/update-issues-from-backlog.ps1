@@ -116,8 +116,8 @@ $add_or_update_issues_iteration = 0
 function add_or_update_issues($directory, $label){
 
   # Traitement de trois fichiers en cas de test
-  debug($add_or_update_issues_iteration)
-  $add_or_update_issues_iteration += 1
+  debug("Test : add_or_update_issues_iteration =  $add_or_update_issues_iteration")
+  $add_or_update_issues_iteration = $add_or_update_issues_iteration + 1
   if($test -and  $add_or_update_issues_iteration -gt 3 ) {return }
 
   debug "----`n - Update or Create issues for : $label `n - ----"
