@@ -19,20 +19,8 @@ $branche_name = "update_backlog_files"
 # - Affectation de l'issue à TeamPlanning
 # - Nom de fichier : 1.nom_issue.23.md
 
-$PSDefaultParameterValues['*:Encoding'] = 'utf8'
-$prev = [Console]::OutputEncoding
-[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
-
-
-#
-# Functions : Message de confirmation
-#
-
-function debug($message){
-  if($debug){
-    Write-Host "`n - $message "
-  }
-}
+# Run cor script
+. _cor.ps1
 
 function confirm_to_continue($message) {
       
