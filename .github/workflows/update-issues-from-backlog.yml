@@ -22,5 +22,6 @@ jobs:
         run: ./scripts/issues/update-issues-from-backlog.ps1
         env:
           GH_TOKEN: ${{ secrets.GHPROJECT_TOKEN }}
+          project_name : "cnmh"
           # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           

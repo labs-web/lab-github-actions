@@ -2,15 +2,28 @@
 
 . "./scripts/core.ps1"
 
+# Core : Params
+$debug = $true
+$test = $false
+$confirm_message = $true
+
 
 # Global variable
 $branche_name = "update_backlog_files"
-$project_name = "labs-web"
+
+$project_name = $project_name 
+if ($project_name -ne $null) {
+  Write-Host "Variable exists"
+  debug("project_name exist = $project_name")
+} else {
+  $project_name = "labs-web"
+  debug("project_name not exist = $project_name")
+}
+
+
+
+
 $depot_path = Get-Location
-# Core : Params
-$debug = $true
-$test = $true
-$confirm_message = $false
 
 # Message de confirmation
 confirm_to_continue("Update or Create issues for repository : $depot_path ")
