@@ -2,7 +2,7 @@
 
 	"Création chapitre": {
 		"scope": "markdown",
-		"prefix": "issue",
+		"prefix": "backlog-item",
 		"body": [
 			"# $1",
 			"## Travail à faire";
