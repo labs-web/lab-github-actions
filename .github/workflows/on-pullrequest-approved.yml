@@ -10,6 +10,6 @@ jobs:
         # if: github.event.review.state == 'approved'
         steps:
         - name: add label to issue
-          run: echo "add label approved"
+          run: echo "add label approved ${{github.event.review.state}}"
           env:
             GH_TOKEN: ${{ secrets.GHPROJECT_TOKEN }}
