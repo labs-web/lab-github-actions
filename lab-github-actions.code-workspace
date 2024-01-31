@@ -1,12 +1,5 @@
 {
 "folders": [
-    {"path": "./backlog"},
-    {"path": "./docs"},
-    {"path": "./scripts"},
-    {"path": "./github-actions"},
-    {
-        "path": "./.github/workflows"
-    },
     {"path": "."}
 ],
 "settings": {
