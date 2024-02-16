@@ -8,8 +8,10 @@ $chanded_files = git diff --name-only HEAD^1 HEAD
 
 
 # Les dossiers autorisé pour le package $package_name
+
 $autorized_directories = "app/Http/Controllers/$package_name",
-                 "app/Models/$package_name"
+                 "app/Models/$package_name",
+                 "docs/$package_name"
 
 # Message d'erreur
 $message_erreur = ""
