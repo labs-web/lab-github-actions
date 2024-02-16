@@ -1,4 +1,4 @@
-
+﻿
 # Input
 $param1 = $args[0]
 $package_name = $param1.Split('/')[0]
