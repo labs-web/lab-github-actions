@@ -11,6 +11,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0 # inclure l'history de deux commit
+          submodules: true
       - name: run code-review.ps1
         shell: pwsh
         run: ./github-actions/code-review/code-review.ps1 ${{ github.event.pull_request.title }} ${{github.event.pull_request.commits}}
