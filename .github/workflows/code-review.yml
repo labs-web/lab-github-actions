@@ -9,7 +9,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # inclure l'history de deux commit
+          fetch-depth: 10 # inclure l'history de deux commit
       - name: run code-review.ps1
         shell: pwsh
         run: ./github-actions/code-review/code-review.ps1 ${{ github.event.pull_request.title }} ${{github.event.pull_request.commits}}
