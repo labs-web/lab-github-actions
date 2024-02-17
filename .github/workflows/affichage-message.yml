@@ -15,4 +15,4 @@ jobs:
           fetch-depth: 1
       - name: run affichage-message.ps1
         shell: pwsh
-        run: ./github-actions/github-actions/affichage-message.ps1
+        run: ./github-actions/affichage-message/affichage-message.ps1
