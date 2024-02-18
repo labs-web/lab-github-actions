@@ -1,0 +1,15 @@
+name: code-review
+on:
+  push
+jobs:
+  git-diff:
+    name: git-diff job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+      - name: run git diff entre main et develop
+        shell: pwsh
+        run:  git diff --name-only  origin/main origin/develop
