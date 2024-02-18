@@ -1,6 +1,7 @@
 name: code-review
 on:
-  push
+  push:
+    branches: [ "develop" ]
 jobs:
   git-diff:
     name: git-diff job
