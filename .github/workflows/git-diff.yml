@@ -1,4 +1,4 @@
-name: code-review
+name: git-deff
 on:
   push:
     branches: [ "develop" ]
