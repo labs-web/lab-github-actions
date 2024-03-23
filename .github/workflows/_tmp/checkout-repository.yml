@@ -1,0 +1,16 @@
+name: checkout-repository
+on: 
+  push:
+    branches: [ "develop" ]
+jobs:
+  job1:
+    name: Check out repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: exécuter git status
+        shell: pwsh
+        run: git status
