@@ -1,13 +1,16 @@
 name: Hello World
 on:
-  push:
-    branches: [ "develop" ]
+  push: 
+    branches: ["develop"]
   pull_request:
-    branches: [ "develop" ]
+    branches: ["develop"]
 jobs:
   job1:
-    name: Afficher le message bonjour
+    name: Afficher le message bonjour avec shell et powershell
     runs-on: ubuntu-latest
     steps:
-      - name: run workflow-commands.ps1
-        run: echo "Bonjour ESSARRAJ Fouad"
+      - name: Affichage avec shell
+        run: echo "Bonjour ESSARRAJ Fouad avec shell"
+      - name : Affichage avec powershell
+        shell: pwsh
+        run : Write-Host "Bonjour Fouad avec powershell"
