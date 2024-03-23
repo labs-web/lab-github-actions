@@ -14,3 +14,10 @@ jobs:
       - name : Affichage avec powershell
         shell: pwsh
         run : Write-Host "Bonjour Fouad avec powershell"
+  job2:
+    name: Afficher le message avec job2
+    runs-on: ubuntu-latest
+    steps:
+      - name : Affichage avec job2
+        shell: pwsh
+        run : Write-Host "Bonjour Fouad avec job2"
