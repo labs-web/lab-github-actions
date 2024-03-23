@@ -1,36 +1,45 @@
 {
     "Introduction":{
-        "Titre" :"",
-        "Reference":"",
-        "Description" : ""
+        "Titre" :"Lab Github Actions",
+        "Reference":"lab-github-actions",
+        "Description" : "Une autoformation pratique sur la réalisation des Workflow avec github actions "
     },
     "Backlog":{
         "Titre" : "Backlog",
-        "Introduction":"Le backlog est une liste ordonées des tâches"
+        "Introduction":"Le backlog est une liste ordonées des tâches."
     },
     "Livrables" :
     {
         "Titre" : "Livrables",
-        "Introduction":"",
+        "Introduction":"La liste des livrables en format des chemins",
         "Livrables": [
             {
                 "Titre":"/Backlog",
-                "Description":"Backlog"
+                "Description":"Le backlog du lab"
             },
             {
                 "Titre":"/docs",
                 "Description":"Documentation"
+            },
+            {
+                "Titre":"/github_actions",
+                "Description":""
+            },
+            {
+                "Titre":"/.github/workflows",
+                "Description":""
             }
+          
         ]
     },   
     "References" :
     {
         "Titre" : "Références",
-        "Introduction":"",
+        "Introduction":"Liste des références à utilisés",
         "References": [
             {
-                "Titre":"Autoformation",
-                "Lien":"#"
+                "Titre":"Marketplace : Actions",
+                "Lien":"https://github.com/marketplace?category=project-management&query=label&type=actions"
             }
            
         ]

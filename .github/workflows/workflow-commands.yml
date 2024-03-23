@@ -13,6 +13,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: run affichage-message.ps1
+      - name: run workflow-commands.ps1
         shell: pwsh
-        run: ./github-actions/affichage-message/affichage-message.ps1
+        run: ./github-actions/workflow-commands/workflow-commands.ps1
