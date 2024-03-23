@@ -2,8 +2,6 @@ name: Hello World
 on:
   push: 
     branches: ["develop"]
-  pull_request:
-    branches: ["develop"]
 jobs:
   job1:
     name: Afficher le message bonjour avec shell et powershell
